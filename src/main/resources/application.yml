@@ -1,0 +1,73 @@
+spring:
+  profiles:
+    active: local
+#  application:
+#    name: pingxi
+server: 
+  context-path: /
+  port: 8888
+management:
+  context-path: /pingxi_manage
+  port: 8889
+---
+spring:
+  profiles: local 
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pingxi?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 
+    dbcp:
+      initial-size: 1
+      min-idle: 1
+      max-idle: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1
+      test-while-idle: true
+      test-on-borrow: true
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+  jpa:   
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  redis: 
+    host: 127.0.0.1
+    port: 6379
+    pool: 
+      max-idle: 10
+      min-idle: 1
+    password: 
+---
+spring:
+  profiles: luwenhe 
+  datasource:
+    url: jdbc:mysql://rdsc0p68drgnpd0zf1x2s.mysql.rds.aliyuncs.com/shenhuiliang?useUnicode=true&characterEncoding=UTF-8
+    username: shenhuiliang
+    password: LuWenhe6131
+    dbcp:
+      initial-size: 1
+      min-idle: 1
+      max-idle: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1
+      test-while-idle: true
+      test-on-borrow: true
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+  jpa:   
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  redis: 
+    host: 127.0.0.1
+    port: 6379
+    pool: 
+      max-idle: 10
+      min-idle: 1
+    password: b59869cac63a69e9ee97e6923a75811ff58bd4936ed3be3480b46145d43ae399

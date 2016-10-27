@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds"> 
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level --- [%thread] %logger{36}   : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <property name="LOG_HOME" value="/logs" />
+	<property name="LOG_APP" value="pingxi" />
+
+    <!-- 时间滚动输出 level为 WARN 日志 -->
+    <appender name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY </onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<!-- 非当天的Log文件压缩备份为 zip -->
+            <FileNamePattern>${LOG_HOME}/${LOG_APP}/error.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+<!--       		<FileNamePattern>${LOG_HOME}/log.%d{yyyy-MM-dd}.%i.zip</FileNamePattern> -->
+<!-- 			<MinIndex>1</MinIndex> -->
+<!--       		<MaxIndex>10</MaxIndex> -->
+            <!-- 超过30天的备份文件会被删除 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!--日志文件最大的大小-->  
+       	<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
+         	<MaxFileSize>10MB</MaxFileSize>  
+       	</triggeringPolicy>
+    </appender>
+    
+	<logger name="com.heibaba" level="DEBUG" />
+	
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"  level="TRACE" />    
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor"  level="DEBUG" />    
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG" />    
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

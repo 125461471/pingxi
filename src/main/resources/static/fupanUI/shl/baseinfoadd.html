@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="../../favicon.ico"/>
+		<link rel="bookmark" href="../../favicon.ico"/>
+		<title>添加基本信息 - 平熙</title>
+		<link rel="stylesheet" href="../../css/bootstrap.min.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/angular.js"></script>
+		<script src="../../js/pinyin.js"></script>
+		<script>
+			var app = angular.module('app', []);
+			app.controller('baseinfoaddController', ['$scope', '$http', function($scope, $http) {
+				
+				$scope.save = function() {
+					$http({
+						  url:'/fupan/shl/stock/base',
+						  method:'POST',
+						  data:$scope.item,
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							  //响应成功
+							  alert("成功");
+						}).error(function(data, status){
+							  //处理响应失败
+							  alert("失败！"+data.errorMsg);
+						});
+				}
+				
+				$scope.getPinyin = function() {
+					$scope.item.pinyin = pinyin.getCamelChars($scope.item.zhongwenming);	
+				}
+				
+				$scope.checkExist = function() {
+					if ($.isNumeric($scope.item.daima) && $scope.item.daima.length == 6) {
+						$http({
+							  url:"/fupan/api/stock/base/"+$scope.item.daima,
+							  method:'GET',
+							  headers:{"version":"1.0.0"}
+							}).success(function(data, status){
+								  //响应成功
+								  if (data.daima != null) {
+									  alert($scope.item.daima+"已存在");
+								  }
+							}).error(function(data, status){
+								  //处理响应失败
+							});	
+					}
+				}
+			}]);
+		</script>
+	</head>
+	
+	<body ng-controller="baseinfoaddController">
+		<div class="container">
+			<h4 class="text-center">添加基本信息</h4>
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">名称</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.zhongwenming" ng-change="getPinyin()">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">代码</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.daima" ng-change="checkExist()">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">融资</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.rongzi">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">区域</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.quyu">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">板块</label>
+					<div class="col-xs-9 col-md-3">
+						<textarea rows="4" class="form-control" ng-model="item.bankuai"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">简拼</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.pinyin">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-3 col-md-5"></div>
+					<div class="col-xs-9 col-md-3">
+						<a class="btn btn-primary" href="" ng-click="save()" >保存</a>
+					</div>
+				</div>
+			</form>
+			
+			<div class="row">
+				<div class="col-xs-3 col-md-5"></div>
+				<a class="btn btn-default" href="/fupanUI/shl/baseinfoadd.html">+ 基本</a>
+				<a class="btn btn-default" href="/fupanUI/shl/extinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-unchecked"></span>&nbsp;详情</a>
+				<a class="btn btn-default" href="/fupanUI/shl/txinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-bell"></span>&nbsp;提醒</a>
+				<a class="btn btn-default" href="/fupanUI/shl/tfpinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;复牌</a>
+				<a class="btn btn-default" href="/fupanUI/shl/index.html?daima={{item.daima}}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="../favicon.ico"/>
+		<link rel="bookmark" href="../favicon.ico"/>
+		<title>首页 - 平熙</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/angular.js"></script>
+		<script src="../js/urlUtil.js"></script>
+		<script>
+			var app = angular.module('app', []);
+			app.controller('indexController', ['$scope', '$http', function($scope, $http) {
+				
+				$scope.queryItem = {queryString:""};
+				
+				$scope.getUrlParams = function() {
+					$scope.queryItem.queryString = getQueryString("daima");
+					if ($scope.queryItem.queryString != null && $scope.queryItem.queryString != "") {
+						$scope.query($scope.queryItem);
+					}
+					$scope.getTxInfo();
+				}
+				
+				$scope.getTxInfo = function() {
+					$http({
+						  url:"/fupan/api/stock/tixing/15/90",
+						  method:'GET',
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							  //响应成功
+							  $scope.txItemList = data;
+						}).error(function(data, status){
+							  //处理响应失败
+							  alert("失败！"+data.errorMsg);
+						});
+				}
+				
+// 				$scope.queryTypes = [
+// 	                {value : "daima", name : "代码"},
+// 	                {value : "keyword", name : "关键字"},
+// 	                {value : "bankuai", name : "板块"}
+// 	            ];
+				
+				$scope.query = function(queryItem) {
+					$scope.itemList = [];
+					var url;
+					var params;
+// 					if (queryItem.selectedQueryType == 'daima') {
+// 						url = "/fupan/api/stock/"+queryItem.queryString;
+// 					} else if (queryItem.selectedQueryType == 'keyword') {
+// 						url = "/fupan/api/stock/keyword?keyword="+queryItem.queryString;
+// 					} else if (queryItem.selectedQueryType == 'bankuai') {
+// 						url = "/fupan/api/stock/bankuai?bankuai="+queryItem.queryString;
+// 					}
+					if ($.isNumeric(queryItem.queryString) && queryItem.queryString.length == 6) {//daima
+						queryItem.selectedQueryType = "daima";
+						url = "/fupan/api/stock/"+queryItem.queryString;
+					} else if (queryItem.queryString.indexOf("#") == 0) {//bankuai
+						queryItem.selectedQueryType = "bankuai";
+						url = "/fupan/api/stock/bankuai";
+						params = {bankuai:queryItem.queryString};
+					} else {//keyword
+						queryItem.selectedQueryType = "keyword";
+						url = "/fupan/api/stock/keyword";
+						params = {keyword:queryItem.queryString};
+					}
+					$http({
+						  url:url,
+						  method:'GET',
+						  headers:{"version":"1.0.0"},
+						  params: params
+						}).success(function(data, status){
+							  //响应成功
+							  if (queryItem.selectedQueryType == 'daima') {
+								  if (data != "") {
+									  $scope.itemList.push(data);
+								  }
+							  } else {
+								  $scope.itemList = data;
+							  }
+						}).error(function(data, status){
+							  //处理响应失败
+							  alert("失败！"+data.errorMsg);
+						});
+				}
+				
+			}]);
+		</script>
+	</head>
+	
+	<body ng-controller="indexController" ng-init="getUrlParams()">
+		<div class="container">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+<!-- 					<div class="col-xs-3 col-md-2"> -->
+<!-- 						<select class="form-control" ng-model="queryItem.selectedQueryType" ng-init="queryItem.selectedQueryType='daima'"> -->
+<!-- 							<option ng-repeat="queryType in queryTypes" value="{{queryType.value}}">{{queryType.name}}</option> -->
+<!-- 						</select> -->
+<!-- 					</div> -->
+					<input type="hidden" ng-model="queryItem.selectedQueryType"/>
+					<div class="col-md-4"></div>
+					<div class="col-xs-7 col-md-3">
+						<input type="text" class="form-control" ng-model="queryItem.queryString" placeholder="6位代码、关键字、#板块">
+					</div>
+					<button type="button" class="col-xs-2 col-md-1 btn btn-primary" ng-click="query(queryItem)">查询</button>
+				</div>
+			</form>
+			
+			<div class="row" ng-if="itemList.length == 0">
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div>暂时没有任何记录</div>
+				</div>
+			</div>
+			<div class="row" ng-repeat="item in itemList">
+				<hr ng-if="$index > 0" />
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<h4>{{item.zhongwenming}}<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;<small>{{item.quyu}}</small></h4>
+				</div>
+				
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div>{{item.bankuai}}</div>
+				</div>
+				
+<!-- 				<h4>详细信息</h4> -->
+				<p />
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div ng-if="item.extInfoList.length == 0">无。</div>
+				</div>
+				
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div ng-repeat="extItem in item.extInfoList" class="row">
+						<div hidden="hidden">{{extItem.id}}</div>
+				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-unchecked"></span>{{extItem.fashengDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-9 col-md-10">{{extItem.miaoshu}}</div>
+					</div>
+				</div>
+				
+<!-- 				<h4>事件提醒</h4> -->
+				<p />
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div ng-repeat="txItem in item.txInfoList" class="row">
+						<div hidden="hidden">{{txItem.id}}</div>
+				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-9 col-md-10">{{txItem.miaoshu}}</div>
+					</div>
+				</div>
+				
+<!-- 				<h4>停复牌</h4> -->
+				<p />
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div ng-repeat="tfpItem in item.tfpInfoList" class="row">
+						<div hidden="hidden">{{tfpItem.id}}</div>
+						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-time"></span>{{tfpItem.fupaiDate | date: "yyMMdd"}}</div>
+			    		<div class="col-xs-9 col-md-10">{{tfpItem.fupaiDate | date: "yyMMdd"}}复牌&nbsp;&nbsp;{{tfpItem.tingpaiDate | date: "yyMMdd"}}停牌</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 全部提醒 -->
+			<hr />
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<h4>全部提醒</h4>
+				</div>
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div ng-repeat="txItem in txItemList" class="row">
+						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-9 col-md-10"><a href="index.html?daima={{txItem.daima}}" target="_blank">{{txItem.zhongwenming}}</a>{{txItem.miaoshu}}</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 最近复牌 /每日复盘-->
+			<hr />
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-xs-4 col-md-1">
+					<a class="btn btn-default" href="/fupanUI/fupai.html" target="_blank"><span class="glyphicon glyphicon-time"></span>&nbsp;最近复牌</a>
+				</div>
+				<div class="col-xs-4 col-md-1">
+					<a class="btn btn-default" href="/fupanUI/fupan_list.html" target="_blank"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;每日复盘</a>
+				</div>
+			</div>
+		</div><!-- /.container -->
+	</body>
+</html>

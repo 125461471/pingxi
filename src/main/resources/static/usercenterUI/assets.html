@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="../favicon.ico"/>
+		<link rel="bookmark" href="../favicon.ico"/>
+		<title>用户资产 - 平熙</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/angular.js"></script>
+		<script>
+			var app = angular.module('app', []);
+			app.controller('assetsController', ['$scope', '$http', function($scope, $http) {
+				
+				//账户信息
+				$scope.accountId = 1;
+				
+				//分页参数设置
+				$scope.pagesize = 10;
+				$scope.pagesort = "assetsDate,desc";
+				
+				$scope.init = function() {
+					$scope.query($scope.accountId);
+				}
+				
+				$scope.query = function(page) {
+					page = page ? (page-1) : 0;
+					$http({
+						  url:"/usercenter/account/"+$scope.accountId+"/assets",
+						  method:'GET',
+						  params:{
+							"page":page,
+							"size":$scope.pagesize,
+							"sort":$scope.pagesort
+						  },
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							//响应成功
+							$scope.items = data.content;
+							$scope.totalItems = data.totalElements;
+						}).error(function(data, status){
+							//处理响应失败
+						});
+				}
+				
+				$scope.updateAssets = function(id) {
+					if (id != undefined) {
+						window.location.href="/usercenterUI/assetsupdate.html?id="+id;
+					}
+				}
+				
+				$scope.deleteAssets = function(id) {
+					if (id != undefined) {
+						$http({
+							  url:'/usercenter/account/'+$scope.accountId+'/assets/'+id,
+							  method:'DELETE',
+							  headers:{"version":"1.0.0"}
+							}).success(function(data, status){
+								  //响应成功
+								  alert("删除成功");
+								  $scope.query($scope.queryItem);
+							}).error(function(data, status){
+								  //处理响应失败
+								  alert("删除失败！"+data.errorMsg);
+							});
+					
+						}
+					}
+			}]);
+		</script>
+	</head>
+	
+	<body ng-controller="assetsController" ng-init="init()">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1">
+				<a class="btn btn-default" href="/usercenterUI/assetsadd.html">填报资产</a>
+				</div>
+			</div>
+			
+			<div class="table-responsive">
+				<table class="table table-condensed table-hover">
+					<tr role="row">
+						<th>日期</th>
+						<th>资产</th>
+						<th>转账</th>
+						<th>仓位</th>
+						<th>停仓</th>
+						<th>操作</th>
+					</tr>
+					<tr ng-repeat="item in items">
+						<td hidden>{{item.id}}</td>
+						<td>{{item.assetsDate | date:'MM/dd/yy'}}</td>
+						<td>{{item.assets | currency:'':0}}</td>
+						<td>{{item.transfer | currency:'':0}}</td>
+						<td>{{item.freightSpace}}%</td>
+						<td>{{item.tpFreightSpace}}%</td>
+						<td>
+							<a href="" ng-click="updateAssets(item.id)">修改</a>
+<!-- 							<a href="" ng-dblclick="deleteAssets(item.id)">删除</a> -->
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div><!-- ./container -->
+	</body>
+</html>

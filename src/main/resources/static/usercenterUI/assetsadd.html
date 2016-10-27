@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="../favicon.ico"/>
+		<link rel="bookmark" href="../favicon.ico"/>
+		<title>填报资产 - 平熙</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/angular.js"></script>
+		<script src="../js/dateUtil.js"></script>
+		<script>
+			var app = angular.module('app', []);
+			app.controller('assetsaddController', ['$scope', '$http', function($scope, $http) {
+				
+				//账户信息
+				$scope.accountId = 1;
+				
+				$scope.item = {
+				}
+				
+				$scope.init = function() {
+					$scope.item.assetsDate = today();
+				}
+				
+				$scope.save = function() {
+					$http({
+						  url:'/usercenter/account/'+$scope.accountId+'/assets',
+						  method:'POST',
+						  data:$scope.item,
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							  //响应成功
+							  alert("成功");
+							  window.location.href="/usercenterUI/assets.html";
+						}).error(function(data, status){
+							  //处理响应失败
+							  alert("失败！"+data.errorMsg);
+						});
+				}
+			}]);
+		</script>
+	</head>
+	
+	<body ng-controller="assetsaddController" ng-init="init()">
+		<div class="container">
+			<h4 class="text-center">填报资产</h4>
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">日期</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="item.assetsDate">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">资产</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" placeholder="总资产" ng-model="item.assets">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">转账</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" placeholder="转入 + , 转出 -" ng-model="item.transfer">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">仓位</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" placeholder="总市值 / 总资产,[0~200]的整数" ng-model="item.freightSpace">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">停牌仓位</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" placeholder="停牌市值 / 总资产,[0~200]的整数" ng-model="item.tpFreightSpace">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-3 col-md-5"></div>
+					<div class="col-xs-3 col-md-1">
+						<a class="btn btn-primary" href="" ng-click="save()" >保存</a>
+					</div>
+					<div class="col-xs-3 col-md-1">
+						<a class="btn btn-default" href="/usercenterUI/assets.html">返回</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
