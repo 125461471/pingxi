@@ -95,7 +95,7 @@
 						<td hidden>{{item.id}}</td>
 						<td>{{item.assetsDate | date:'MM/dd/yy'}}</td>
 						<td>{{item.assets | currency:'':0}}</td>
-						<td>{{item.transfer | currency:'':0}}</td>
+						<td>{{item.transfer>0?'+'+(item.transfer | currency:'':0):(item.transfer | currency:'':0)}}</td>
 						<td>{{item.freightSpace}}%</td>
 						<td>{{item.tpFreightSpace}}%</td>
 						<td>
