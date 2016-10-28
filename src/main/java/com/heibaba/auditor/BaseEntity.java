@@ -1,4 +1,4 @@
-package com.heibaba.autidor;
+package com.heibaba.auditor;
 
 import java.util.Date;
 

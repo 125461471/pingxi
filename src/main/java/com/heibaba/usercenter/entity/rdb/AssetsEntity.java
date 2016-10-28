@@ -16,7 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.heibaba.autidor.BaseEntity;
+import com.heibaba.auditor.BaseEntity;
 
 @Entity
 @Table(name="assets")
