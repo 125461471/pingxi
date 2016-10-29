@@ -18,7 +18,7 @@
 				$scope.query = function() {
 					$scope.itemList = [];
 					$http({
-						  url:"/fupan/api/stock/fupai/30",
+						  url:"/fupan/api/stock/fupai/130",
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -48,7 +48,7 @@
 				<div class="col-xs-4 col-md-2">
 					<h4>最近复牌</h4>
 				</div>
-				<div class="col-xs-1 col-md-6">
+				<div class="col-xs-8 col-md-6">
 					<a class="btn btn-default" href="/fupanUI/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
 				</div>
 			</div>
