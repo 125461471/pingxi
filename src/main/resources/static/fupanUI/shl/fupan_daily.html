@@ -26,7 +26,6 @@
 				}
 				
 				$scope.query = function(queryItem) {
-					$scope.itemList = [];
 					$http({
 						  url:"/fupan/api/stock/fupan/"+queryItem.queryString,
 						  method:'GET',
@@ -88,12 +87,6 @@
 	
 	<body ng-controller="fupaiController" ng-init="getUrlParams()">
 		<div class="container">
-			<div class="row" ng-if="itemList.length == 0">
-				<div class="col-md-4"></div>
-				<div class="col-md-8">
-					<div>暂时没有任何记录</div>
-				</div>
-			</div>
 			
 			<div class="row">
 				<div class="col-md-4"></div>
@@ -102,6 +95,13 @@
 				</div>
 				<div class="col-xs-8 col-md-6">
 					<a class="btn btn-default" href="/fupanUI/shl/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+				</div>
+			</div>
+			
+			<div class="row" ng-if="itemList.length == 0">
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<div>暂时没有任何记录</div>
 				</div>
 			</div>
 			
