@@ -2,7 +2,9 @@ package com.heibaba.fupan.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -102,12 +104,20 @@ public class StockBaseInfoService {
 	        }
 	    });
 		
-		List<String> daimaList = new ArrayList<String>();
+		Set<String> daimaList = new HashSet<String>();
 		for (StockExtInfoEntity entity : list) {
-			daimaList.add(entity.getDaima());
+			if (!daimaList.contains(entity)) {
+				daimaList.add(entity.getDaima());
+			}
 		}
-		
-		return stockBaseInfoRepository.findAllByDaimaInOrderByJiluDateDesc(daimaList);
+//		List<String> daimaList = new ArrayList<String>();
+//		for (StockExtInfoEntity entity : list) {
+//			if (!daimaList.contains(entity)) {
+//				daimaList.add(entity.getDaima());
+//			}
+//		}
+
+		return stockBaseInfoRepository.findAllByDaimaInOrderByJiluDateDesc(new ArrayList<String>(daimaList));
 	}
 	
 	/**
