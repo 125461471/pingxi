@@ -129,7 +129,7 @@ public class StockController extends FupanOpenParentController {
 	@RequestMapping(value = "/stock/fupan/datelist/{top}", method = RequestMethod.GET, headers = "version=1.0.0")
 	public List<String> getLatestFupanList(@PathVariable(value = "top") int top) {
 		
-		return stockExtInfoService.findLatestFupanList(top);
+		return stockExtInfoService.findLatestFupanDateList(top);
 	}
 	
 }

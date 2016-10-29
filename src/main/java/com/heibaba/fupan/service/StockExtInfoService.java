@@ -49,7 +49,7 @@ public class StockExtInfoService {
 	 * @param id
 	 * @return
 	 */
-	public List<String> findLatestFupanList(int top) {
+	public List<String> findLatestFupanDateList(int top) {
 
 		List<String> list_result = new ArrayList<String>();
 		List<Date> list = stockExtInfoRepository.findLatestFupanList(top);
