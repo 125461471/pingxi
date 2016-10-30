@@ -29,7 +29,7 @@
 				
 				$scope.query = function(queryItem) {
 					$http({
-						  url:"/fupan/api/stock/"+$scope.queryItem.daima,
+						  url:"/pingxi/fupan/api/stock/"+$scope.queryItem.daima,
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -43,32 +43,32 @@
 				
 				$scope.updateBase = function(item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/baseinfoupdate.html?daima="+item.daima;
+						window.location.href="/pingxi/fupanUI/shl/baseinfoupdate.html?daima="+item.daima;
 					}
 				}
 				
 				$scope.updateExt = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/extinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/extinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.updateTfp = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/tfpinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/tfpinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.updateTx = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/txinfoupdate.html?&id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/txinfoupdate.html?&id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.deleteInfo = function(type, id) {
 					if (id != undefined) {
 						$http({
-							  url:'/fupan/shl/stock/'+type+"/"+id,
+							  url:'/pingxi/fupan/shl/stock/'+type+"/"+id,
 							  method:'DELETE',
 							  headers:{"version":"1.0.0"}
 							}).success(function(data, status){
@@ -101,11 +101,11 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<a class="btn btn-default" href="/fupanUI/shl/baseinfoadd.html">+ 基本</a>
-					<a class="btn btn-default" href="/fupanUI/shl/extinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-unchecked"></span>&nbsp;详情</a>
-					<a class="btn btn-default" href="/fupanUI/shl/txinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-bell"></span>&nbsp;提醒</a>
-					<a class="btn btn-default" href="/fupanUI/shl/tfpinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;复牌</a>
-					<a class="btn btn-default" href="/fupanUI/shl/index.html?daima={{item.daima}}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/baseinfoadd.html">+ 基本</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/extinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-unchecked"></span>&nbsp;详情</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/txinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-bell"></span>&nbsp;提醒</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/tfpinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;复牌</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/index.html?daima={{item.daima}}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
 				</div>
 			</div>
 			
@@ -187,9 +187,9 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<a class="btn btn-default" href="/fupanUI/shl/fupai.html" target="_blank"><span class="glyphicon glyphicon-time"></span>&nbsp;最近复牌</a>
-					<a class="btn btn-default" href="/fupanUI/shl/fupan_list.html" target="_blank"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;每日复盘</a>
-<!-- 					<a class="btn btn-default" href="/fupanUI/shl/fupan_list.html"><span class="glyphicon glyphicon-list"></span>&nbsp;每日复盘</a> -->
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/fupai.html" target="_blank"><span class="glyphicon glyphicon-time"></span>&nbsp;最近复牌</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/fupan_list.html" target="_blank"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;每日复盘</a>
+<!-- 					<a class="btn btn-default" href="/pingxi/fupanUI/shl/fupan_list.html"><span class="glyphicon glyphicon-list"></span>&nbsp;每日复盘</a> -->
 				</div>
 			</div>
 		</div><!-- /.container -->

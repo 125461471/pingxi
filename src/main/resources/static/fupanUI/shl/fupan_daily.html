@@ -27,7 +27,7 @@
 				
 				$scope.query = function(queryItem) {
 					$http({
-						  url:"/fupan/api/stock/fupan/"+queryItem.queryString,
+						  url:"/pingxi/fupan/api/stock/fupan/"+queryItem.queryString,
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -41,32 +41,32 @@
 				
 				$scope.updateBase = function(item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/baseinfoupdate.html?daima="+item.daima;
+						window.location.href="/pingxi/fupanUI/shl/baseinfoupdate.html?daima="+item.daima;
 					}
 				}
 				
 				$scope.updateExt = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/extinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/extinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.updateTfp = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/tfpinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/tfpinfoupdate.html?id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.updateTx = function(zhongwenming, item) {
 					if (item.daima != undefined) {
-						window.location.href="/fupanUI/shl/txinfoupdate.html?&id="+item.id+"&zhongwenming="+zhongwenming;
+						window.location.href="/pingxi/fupanUI/shl/txinfoupdate.html?&id="+item.id+"&zhongwenming="+zhongwenming;
 					}
 				}
 				
 				$scope.deleteInfo = function(type, id) {
 					if (id != undefined) {
 						$http({
-							  url:'/fupan/shl/stock/'+type+"/"+id,
+							  url:'/pingxi/fupan/shl/stock/'+type+"/"+id,
 							  method:'DELETE',
 							  headers:{"version":"1.0.0"}
 							}).success(function(data, status){
@@ -94,7 +94,7 @@
 					<h4>{{queryItem.queryString | date: "yyMMdd"}}复盘</h4>
 				</div>
 				<div class="col-xs-8 col-md-6">
-					<a class="btn btn-default" href="/fupanUI/shl/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
 				</div>
 			</div>
 			

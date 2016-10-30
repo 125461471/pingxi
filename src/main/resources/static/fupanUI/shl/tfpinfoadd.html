@@ -30,7 +30,7 @@
 				
 				$scope.query = function(queryItem) {
 					$http({
-						  url:"/fupan/api/stock/base/"+$scope.queryItem.daima,
+						  url:"/pingxi/fupan/api/stock/base/"+$scope.queryItem.daima,
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -45,7 +45,7 @@
 				
 				$scope.save = function() {
 					$http({
-						  url:'/fupan/shl/stock/tingfupai',
+						  url:'/pingxi/fupan/shl/stock/tingfupai',
 						  method:'POST',
 						  data:$scope.item,
 						  headers:{"version":"1.0.0"}
@@ -103,11 +103,11 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<a class="btn btn-default" href="/fupanUI/shl/baseinfoadd.html">+ 基本</a>
-					<a class="btn btn-default" href="/fupanUI/shl/extinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-unchecked"></span>&nbsp;详情</a>
-					<a class="btn btn-default" href="/fupanUI/shl/txinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-bell"></span>&nbsp;提醒</a>
-					<a class="btn btn-default" href="/fupanUI/shl/tfpinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;复牌</a>
-					<a class="btn btn-default" href="/fupanUI/shl/index.html?daima={{item.daima}}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/baseinfoadd.html">+ 基本</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/extinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-unchecked"></span>&nbsp;详情</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/txinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-bell"></span>&nbsp;提醒</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/tfpinfoadd.html?daima={{item.daima}}&zhongwenming={{item.zhongwenming}}">+&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;复牌</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/shl/index.html?daima={{item.daima}}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
 				</div>
 			</div>
 		</div><!-- /.container -->

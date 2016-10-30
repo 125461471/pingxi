@@ -29,7 +29,7 @@
 				$scope.query = function(page) {
 					page = page ? (page-1) : 0;
 					$http({
-						  url:"/usercenter/account/"+$scope.accountId+"/assets",
+						  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets",
 						  method:'GET',
 						  params:{
 							"page":page,
@@ -48,14 +48,14 @@
 				
 				$scope.updateAssets = function(id) {
 					if (id != undefined) {
-						window.location.href="/usercenterUI/assetsupdate.html?id="+id;
+						window.location.href="/pingxi/usercenterUI/assetsupdate.html?id="+id;
 					}
 				}
 				
 				$scope.deleteAssets = function(id) {
 					if (id != undefined) {
 						$http({
-							  url:'/usercenter/account/'+$scope.accountId+'/assets/'+id,
+							  url:'/pingxi/usercenter/account/'+$scope.accountId+'/assets/'+id,
 							  method:'DELETE',
 							  headers:{"version":"1.0.0"}
 							}).success(function(data, status){
@@ -77,7 +77,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-1">
-				<a class="btn btn-default" href="/usercenterUI/assetsadd.html">填报资产</a>
+				<a class="btn btn-default" href="/pingxi/usercenterUI/assetsadd.html">填报资产</a>
 				</div>
 			</div>
 			

@@ -27,7 +27,7 @@
 				
 				$scope.query = function(queryItem) {
 					$http({
-						  url:"/fupan/api/stock/fupan/"+queryItem.queryString,
+						  url:"/pingxi/fupan/api/stock/fupan/"+queryItem.queryString,
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -52,7 +52,7 @@
 					<h4>{{queryItem.queryString | date: "yyMMdd"}}复盘</h4>
 				</div>
 				<div class="col-xs-8 col-md-6">
-					<a class="btn btn-default" href="/fupanUI/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
 				</div>
 			</div>
 			

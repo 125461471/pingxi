@@ -28,7 +28,7 @@
 				
 				$scope.getTxInfo = function() {
 					$http({
-						  url:"/fupan/api/stock/tixing/15/90",
+						  url:"/pingxi/fupan/api/stock/tixing/15/90",
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -50,22 +50,22 @@
 					var url;
 					var params;
 // 					if (queryItem.selectedQueryType == 'daima') {
-// 						url = "/fupan/api/stock/"+queryItem.queryString;
+// 						url = "/pingxi/fupan/api/stock/"+queryItem.queryString;
 // 					} else if (queryItem.selectedQueryType == 'keyword') {
-// 						url = "/fupan/api/stock/keyword?keyword="+queryItem.queryString;
+// 						url = "/pingxi/fupan/api/stock/keyword?keyword="+queryItem.queryString;
 // 					} else if (queryItem.selectedQueryType == 'bankuai') {
-// 						url = "/fupan/api/stock/bankuai?bankuai="+queryItem.queryString;
+// 						url = "/pingxi/fupan/api/stock/bankuai?bankuai="+queryItem.queryString;
 // 					}
 					if ($.isNumeric(queryItem.queryString) && queryItem.queryString.length == 6) {//daima
 						queryItem.selectedQueryType = "daima";
-						url = "/fupan/api/stock/"+queryItem.queryString;
+						url = "/pingxi/fupan/api/stock/"+queryItem.queryString;
 					} else if (queryItem.queryString.indexOf("#") == 0) {//bankuai
 						queryItem.selectedQueryType = "bankuai";
-						url = "/fupan/api/stock/bankuai";
+						url = "/pingxi/fupan/api/stock/bankuai";
 						params = {bankuai:queryItem.queryString};
 					} else {//keyword
 						queryItem.selectedQueryType = "keyword";
-						url = "/fupan/api/stock/keyword";
+						url = "/pingxi/fupan/api/stock/keyword";
 						params = {keyword:queryItem.queryString};
 					}
 					$http({
@@ -197,9 +197,9 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-xs-12 col-md-8">
-					<a class="btn btn-default" href="/fupanUI/fupai.html" target="_blank"><span class="glyphicon glyphicon-time"></span>&nbsp;最近复牌</a>
-					<a class="btn btn-default" href="/fupanUI/fupan_list.html" target="_blank"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;每日复盘</a>
-<!-- 					<a class="btn btn-default" href="/fupanUI/fupan_list.html"><span class="glyphicon glyphicon-list"></span>&nbsp;每日复盘</a> -->
+					<a class="btn btn-default" href="/pingxi/fupanUI/fupai.html" target="_blank"><span class="glyphicon glyphicon-time"></span>&nbsp;最近复牌</a>
+					<a class="btn btn-default" href="/pingxi/fupanUI/fupan_list.html" target="_blank"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;每日复盘</a>
+<!-- 					<a class="btn btn-default" href="/pingxi/fupanUI/fupan_list.html"><span class="glyphicon glyphicon-list"></span>&nbsp;每日复盘</a> -->
 				</div>
 			</div>
 		</div><!-- /.container -->

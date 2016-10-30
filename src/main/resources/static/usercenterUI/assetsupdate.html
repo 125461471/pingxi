@@ -28,7 +28,7 @@
 				
 				$scope.query = function(id) {
 					$http({
-						  url:"/usercenter/account/"+$scope.accountId+"/assets/"+id,
+						  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/"+id,
 						  method:'GET',
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
@@ -42,14 +42,14 @@
 				
 				$scope.save = function() {
 					$http({
-						 url:"/usercenter/account/"+$scope.accountId+"/assets/"+id,
+						 url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/"+id,
 						  method:'PUT',
 						  data:$scope.item,
 						  headers:{"version":"1.0.0"}
 						}).success(function(data, status){
 							  //响应成功
 							  alert("成功");
-							  window.location.href="/usercenterUI/assets.html";
+							  window.location.href="/pingxi/usercenterUI/assets.html";
 						}).error(function(data, status){
 							  //处理响应失败
 							  alert("失败！"+data.errorMsg);
@@ -99,7 +99,7 @@
 						<a class="btn btn-primary" href="" ng-click="save()" >保存</a>
 					</div>
 					<div class="col-xs-3 col-md-1">
-						<a class="btn btn-default" href="/usercenterUI/assets.html">返回</a>
+						<a class="btn btn-default" href="/pingxi/usercenterUI/assets.html">返回</a>
 					</div>
 				</div>
 			</form>
