@@ -45,9 +45,11 @@ public class StockBaseInfoEntity extends BaseEntity implements Serializable {
 	@Max(1)
 	private Integer rongzi;
 	
+	@NotNull
 	@Column(name = "quyu")
 	private String quyu;
 	
+	@NotNull
 	@Column(name = "bankuai")
 	private String bankuai;
 	
