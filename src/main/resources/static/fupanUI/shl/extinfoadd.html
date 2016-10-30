@@ -28,6 +28,7 @@
 				}
 				
 				$scope.query = function(queryItem) {
+					$scope.item.miaoshu = "";
 					$http({
 						  url:"/pingxi/fupan/api/stock/base/"+$scope.queryItem.daima,
 						  method:'GET',

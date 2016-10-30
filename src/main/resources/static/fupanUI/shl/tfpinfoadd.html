@@ -29,6 +29,8 @@
 				}
 				
 				$scope.query = function(queryItem) {
+					$scope.item.tingpaiDate = "2016-";
+					$scope.item.fupaiDate = today();
 					$http({
 						  url:"/pingxi/fupan/api/stock/base/"+$scope.queryItem.daima,
 						  method:'GET',
