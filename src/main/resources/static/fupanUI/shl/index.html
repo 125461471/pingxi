@@ -115,45 +115,26 @@
 					<div>暂时没有任何记录</div>
 				</div>
 			</div>
+			
 			<div class="row" ng-if="item != undefined && item != ''">
-				<p />
-<!-- 				<div class="col-md-4"></div> -->
-<!-- 				<div class="col-md-8"> -->
-<!-- 					<h4>基本信息</h4> -->
-<!-- 				</div> -->
-				
+				<p/>
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<label>代码:</label>{{item.daima}}
-					<a href="" ng-click="updateBase(item)">修改</a>
-					<a href="" ng-dblclick="deleteInfo('base', item.daima)">删除</a>
+					<h4>{{item.zhongwenming}}
+						<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;
+						<small>{{item.quyu}}&nbsp;&nbsp;
+							<a href="" ng-click="updateBase(item)">修改</a>
+							<a href="" ng-dblclick="deleteInfo('base', item.daima)">删除</a>
+						</small>
+					</h4>
 				</div>
 				
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<label>名称:</label>{{item.zhongwenming}}
+					<div>{{item.bankuai}}</div>
 				</div>
 				
-				<div class="col-md-4"></div>
-				<div class="col-md-8">
-					<label>融资:</label>{{item.rongzi}}
-				</div>
-				
-				<div class="col-md-4"></div>
-				<div class="col-md-8">
-					<label>区域:</label>{{item.quyu}}
-				</div>
-				
-				<div class="col-md-4"></div>
-				<div class="col-md-8">
-					<label>板块:</label>{{item.bankuai}}
-				</div>
-				
-<!-- 				<div class="col-md-4"></div> -->
-<!-- 				<div class="col-md-8"> -->
-<!-- 					<h4>详细信息</h4> -->
-<!-- 				</div> -->
-				
+<!-- 				<h4>详细信息</h4> -->
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
 					<div ng-if="item.extInfoList.length == 0">无。</div>
@@ -172,10 +153,7 @@
 					</div>
 				</div>
 				
-<!-- 				<div class="col-md-4"></div> -->
-<!-- 				<div class="col-md-8"> -->
-<!-- 					<h4 ng-if="item.txInfoList.length > 0">事件提醒</h4> -->
-<!-- 				</div> -->
+<!-- 				<h4>事件提醒</h4> -->
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
 					<div ng-repeat="txItem in item.txInfoList" class="row">
@@ -189,10 +167,7 @@
 					</div>
 				</div>
 				
-<!-- 				<div class="col-md-4"></div> -->
-<!-- 				<div class="col-md-8"> -->
-<!-- 					<h4 ng-if="item.tfpInfoList.length > 0">停复牌</h4> -->
-<!-- 				</div> -->
+<!-- 				<h4>停复牌</h4> -->
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
 					<div ng-repeat="tfpItem in item.tfpInfoList" class="row">
