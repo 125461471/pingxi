@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.heibaba.common.exception.BusinessException;
+import com.heibaba.common.exception.ChangePwdException;
+import com.heibaba.common.exception.UserAuthException;
+import com.heibaba.common.exception.UserRegisterException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -53,5 +56,32 @@ public class GlobalExceptionHandler {
 //	    responseHeaders.set("errorMsg", exception.getMessage());
 //	    return new ResponseEntity<>(responseHeaders, HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(new ErrorResponse("000000", exception.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ChangePwdException.class)
+//	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ResponseEntity<?> handleChangePwdException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+
+		logger.error("ChangePwdException Occured:: #URL= "+request.getRequestURL()+" #CLASS= "+exception.getClass().getSimpleName()+" #Cause= "+exception.getMessage());
+		logger.error(exception.toString(), exception);
+		return new ResponseEntity<>(new ErrorResponse("000003", exception.getMessage()), HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(UserAuthException.class)
+//	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ResponseEntity<?> handleUserAuthException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+
+		logger.error("UserAuthException Occured:: #URL= "+request.getRequestURL()+" #CLASS= "+exception.getClass().getSimpleName()+" #Cause= "+exception.getMessage());
+		logger.error(exception.toString(), exception);
+		return new ResponseEntity<>(new ErrorResponse("000004", exception.getMessage()), HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(UserRegisterException.class)
+//	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ResponseEntity<?> handleUserRegisterException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+
+		logger.error("UserRegisterException Occured:: #URL= "+request.getRequestURL()+" #CLASS= "+exception.getClass().getSimpleName()+" #Cause= "+exception.getMessage());
+		logger.error(exception.toString(), exception);
+		return new ResponseEntity<>(new ErrorResponse("000005", exception.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 }
