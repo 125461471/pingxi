@@ -25,7 +25,6 @@ public abstract class BaseEntity2 {
 	@Column(name = "update_time")
 	private Date updateTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_user_id")
 	private String updateUserId;
 	
