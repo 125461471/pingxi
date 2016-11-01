@@ -24,7 +24,7 @@ public class UserController extends UcConsoleParentController {
 	/**
 	 * 配置默认密码
 	 */
-	@Value("${app.conf.default_pwd}")
+	@Value("${app.conf.default-pwd}")
 	private String defaultPwd;
 	
 	@Autowired

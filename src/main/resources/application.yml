@@ -9,6 +9,11 @@ server:
 management:
   context-path: /pingxi_manage
   port: 8889
+app: 
+  conf: 
+    default-pwd: 888888
+  index-path: /index.html
+  login-path: /login.html
 ---
 spring:
   profiles: local 
