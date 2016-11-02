@@ -55,41 +55,36 @@
 				}
 				
 				$scope.appendFupaiInfoFormat = function() {
-					var fupaiInfoFormat = "【复牌】**，【**】。**。停牌前总市值【$total$亿】，流通市值【$liutong$亿】，前10大流通股东占【$top10$%】，实际流通市值【$shijiLiutong$亿】。";
+					var format = "【复牌】**，【**】。**。\n停牌前总市值$1$亿元，流通市值$2$亿元，前10大流通股东占【$3$%】，实际流通市值【$shijiLiutong$亿元】，停牌价$4$。";
 					if ($scope.item.miaoshu != undefined) {
-						$scope.item.miaoshu += fupaiInfoFormat;
+						$scope.item.miaoshu += format;
 					} else {
-						$scope.item.miaoshu = fupaiInfoFormat;
+						$scope.item.miaoshu = format;
 					}
 				}
 				
 				$scope.appendSongzhuanYuqiInfoFormat = function() {
-					var songzhuanYuqiInfoFormat = "每股净资产【$1$】，公积金【$2$】，未分配利润【$3$】，总股本【$4$】，流通股【$5$】，总市值【$6$】，流通市值【$7$】，当前价【$8$】。";
-					songzhuanYuqiInfoFormat += "**季报净利同比增长/减少【**】。";
-					songzhuanYuqiInfoFormat += "【**解禁提醒】";
+					var format = "每股净资产$1$，公积金$2$，未分配利润$3$，总股本$4$亿股，流通股$5$亿股，\n总市值$6$亿元，流通市值$7$亿元，前10大流通股东占【$8$%】，实际流通市值【$shijiLiutong$亿元】，当前价$9$。";
+					format += "\n**季报净利同比增长/减少**；(半)年报**。";
+					format += "\n解禁提醒**";
 					if ($scope.item.miaoshu != undefined) {
-						$scope.item.miaoshu += songzhuanYuqiInfoFormat;
+						$scope.item.miaoshu += format;
 					} else {
-						$scope.item.miaoshu = songzhuanYuqiInfoFormat;
+						$scope.item.miaoshu = format;
 					}
 				}
 				
-				$scope.replaceFupai = function() {
+				$scope.replace = function(type) {
 					if ($scope.shortContent != undefined) {
 						var content = $scope.shortContent.split("/");
-						for (var i=0; i<content.length; i++) {
-							$scope.item.miaoshu = $scope.item.miaoshu.replace("$total$", content[0]);
-							$scope.item.miaoshu = $scope.item.miaoshu.replace("$liutong$", content[1]);
-							$scope.item.miaoshu = $scope.item.miaoshu.replace("$top10$", content[2]);
-							$scope.item.miaoshu = $scope.item.miaoshu.replace("$shijiLiutong$", (content[1]*(100-content[2])*0.01).toFixed(1));//content[3]);
-						}
-					}
-				}
-				
-				$scope.replaceSongzhuanYuqi = function() {
-					if ($scope.shortContent != undefined) {
-						var content = $scope.shortContent.split("/");
-						for (var i=0; i<content.length; i++) {
+						debugger;
+						if (type == 'tfp') {//Replace停复牌
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$1$", content[0]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$2$", content[1]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$3$", content[2]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$4$", content[3]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$shijiLiutong$", (content[1]*(100-content[2])*0.01).toFixed(1));
+						} else if (type == 'gsyq') {//Replace高送预期
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$1$", content[0]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$2$", content[1]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$3$", content[2]);
@@ -98,6 +93,9 @@
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$6$", content[5]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$7$", content[6]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$8$", content[7]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$9$", content[8]);
+							debugger;
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$shijiLiutong$", (content[6]*(100-content[7])*0.01).toFixed(1));
 						}
 					}
 				}
@@ -121,11 +119,11 @@
 						</p>
 						<button type="button" ng-click="appendFupaiInfoFormat()">+&nbsp;<span class="glyphicon glyphicon-time"></span></button>
 						</p>
-						<button type="button" ng-click="replaceFupai()">R&nbsp;<span class="glyphicon glyphicon-time"></span></button>
+						<button type="button" ng-click="replace('tfp')">R&nbsp;<span class="glyphicon glyphicon-time"></span></button>
 						</p>
 						<button type="button" ng-click="appendSongzhuanYuqiInfoFormat()">+&nbsp;送</button>
 						</p>
-						<button type="button" ng-click="replaceSongzhuanYuqi()">R&nbsp;送</button>
+						<button type="button" ng-click="replace('gsyq')">R&nbsp;送</button>
 					</label>
 					<div class="col-xs-9 col-md-3">
 						<textarea cols="50" rows="10" class="form-control" ng-model="item.miaoshu"></textarea>

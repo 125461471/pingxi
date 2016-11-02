@@ -57,6 +57,24 @@
 							  alert("失败！"+data.errorMsg);
 						});
 				}
+				
+				$scope.appendJiejinInfoFormat = function() {
+					var format = "解禁**万股，占总股本**%。";
+					if ($scope.item.miaoshu != undefined) {
+						$scope.item.miaoshu += format;
+					} else {
+						$scope.item.miaoshu = format;
+					}
+				}
+				
+				$scope.appendGaosongzhuanInfoFormat = function() {
+					var format = "**公布 审议/通过/实施 高送转方案，**，登记日**，除权日**。";
+					if ($scope.item.miaoshu != undefined) {
+						$scope.item.miaoshu += format;
+					} else {
+						$scope.item.miaoshu = format;
+					}
+				}
 			}]);
 		</script>
 	</head>
@@ -81,7 +99,12 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-xs-3 col-md-5 control-label">描述</label>
+					<label class="col-xs-3 col-md-5 control-label">描述
+						</p>
+						<button type="button" ng-click="appendJiejinInfoFormat()">+&nbsp;解禁</button>
+						</p>
+						<button type="button" ng-click="appendGaosongzhuanInfoFormat()">+&nbsp;高送</button>
+					</label>
 					<div class="col-xs-9 col-md-3">
 						<textarea cols="50" rows="10" class="form-control" ng-model="item.miaoshu"></textarea>
 					</div>
