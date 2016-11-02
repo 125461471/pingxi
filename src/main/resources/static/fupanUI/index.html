@@ -19,7 +19,7 @@
 				$scope.queryItem = {queryString:""};
 				
 				$scope.getUrlParams = function() {
-					$scope.queryItem.queryString = getQueryString("daima");
+					$scope.queryItem.queryString = getQueryString("queryParam");
 					if ($scope.queryItem.queryString != null && $scope.queryItem.queryString != "") {
 						$scope.query($scope.queryItem);
 					}
@@ -187,7 +187,7 @@
 				<div class="col-md-8">
 					<div ng-repeat="txItem in txItemList" class="row">
 						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-9 col-md-10"><a href="index.html?daima={{txItem.daima}}" target="_blank">{{txItem.zhongwenming}}</a>{{txItem.miaoshu}}</div>
+						<div class="col-xs-9 col-md-10"><a href="index.html?queryParam={{txItem.daima}}" target="_blank">{{txItem.zhongwenming}}</a>{{txItem.miaoshu}}</div>
 					</div>
 				</div>
 			</div>

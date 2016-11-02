@@ -29,6 +29,10 @@
 						});
 				}
 				
+				$scope.findBankuaiStocks = function(bankuai) {
+					window.location.href="/pingxi/fupanUI/index.html?queryParam="+bankuai.replace(/\#/g,"%23");
+				}
+				
 			}]);
 		</script>
 	</head>
@@ -63,7 +67,7 @@
 				
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<div>{{item.bankuai}}</div>
+				<span ng-repeat="bk in item.bankuai.split('#') track by $index" ng-click="findBankuaiStocks('#'+bk)">{{bk==''?'':'#'+bk}}&nbsp;&nbsp;</span>
 				</div>
 				
 <!-- 				<h4>详细信息</h4> -->

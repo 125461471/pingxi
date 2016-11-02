@@ -121,7 +121,7 @@
 				
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<div>{{item.bankuai}}</div>
+					<span ng-repeat="bk in item.bankuai.split('#') track by $index">{{bk==''?'':'#'+bk}}&nbsp;&nbsp;</span>
 				</div>
 				
 <!-- 				<h4>详细信息</h4> -->

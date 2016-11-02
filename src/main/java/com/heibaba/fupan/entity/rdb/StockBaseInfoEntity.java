@@ -55,7 +55,7 @@ public class StockBaseInfoEntity extends BaseEntity implements Serializable {
 	
 	@OneToMany//(cascade={CascadeType.MERGE,CascadeType.REFRESH},fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="daima")
-	@OrderBy(value="fashengDate desc")
+	@OrderBy(value="fashengDate desc, jiluDate desc")
 	private List<StockExtInfoEntity> extInfoList;
 	
 	@OneToMany//(cascade={CascadeType.MERGE,CascadeType.REFRESH},fetch=FetchType.EAGER,optional=false)
