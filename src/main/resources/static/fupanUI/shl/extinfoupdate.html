@@ -55,7 +55,7 @@
 				}
 				
 				$scope.appendFupaiInfoFormat = function() {
-					var fupaiInfoFormat = "【复牌】**，【**】。**。停牌前总市值【亿】，流通市值【亿】，前10大流通股东占**%，实际流通市值【亿】。";
+					var fupaiInfoFormat = "【复牌】**，【**】。**。停牌前总市值【$total$亿】，流通市值【$liutong$亿】，前10大流通股东占【$top10$%】，实际流通市值【$shijiLiutong$亿】。";
 					if ($scope.item.miaoshu != undefined) {
 						$scope.item.miaoshu += fupaiInfoFormat;
 					} else {
@@ -64,13 +64,41 @@
 				}
 				
 				$scope.appendSongzhuanYuqiInfoFormat = function() {
-					var songzhuanYuqiInfoFormat = "每股净资产【】，公积金【】，未分配利润【】，总股本【】，流通股【】，总市值【】，流通市值【】，当前价【】。";
-					songzhuanYuqiInfoFormat += "**季报净利同比增长/减少【】。";
-					songzhuanYuqiInfoFormat += "【解禁提醒】";
+					var songzhuanYuqiInfoFormat = "每股净资产【$1$】，公积金【$2$】，未分配利润【$3$】，总股本【$4$】，流通股【$5$】，总市值【$6$】，流通市值【$7$】，当前价【$8$】。";
+					songzhuanYuqiInfoFormat += "**季报净利同比增长/减少【**】。";
+					songzhuanYuqiInfoFormat += "【**解禁提醒】";
 					if ($scope.item.miaoshu != undefined) {
 						$scope.item.miaoshu += songzhuanYuqiInfoFormat;
 					} else {
 						$scope.item.miaoshu = songzhuanYuqiInfoFormat;
+					}
+				}
+				
+				$scope.replaceFupai = function() {
+					if ($scope.shortContent != undefined) {
+						var content = $scope.shortContent.split("/");
+						for (var i=0; i<content.length; i++) {
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$total$", content[0]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$liutong$", content[1]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$top10$", content[2]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$shijiLiutong$", (content[1]*(100-content[2])*0.01).toFixed(1));//content[3]);
+						}
+					}
+				}
+				
+				$scope.replaceSongzhuanYuqi = function() {
+					if ($scope.shortContent != undefined) {
+						var content = $scope.shortContent.split("/");
+						for (var i=0; i<content.length; i++) {
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$1$", content[0]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$2$", content[1]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$3$", content[2]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$4$", content[3]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$5$", content[4]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$6$", content[5]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$7$", content[6]);
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$8$", content[7]);
+						}
 					}
 				}
 			}]);
@@ -91,12 +119,22 @@
 				<div class="form-group">
 					<label class="col-xs-3 col-md-5 control-label">描述
 						</p>
-						<button type="button" ng-click="appendFupaiInfoFormat()">+复</button>
+						<button type="button" ng-click="appendFupaiInfoFormat()">+&nbsp;<span class="glyphicon glyphicon-time"></span></button>
 						</p>
-						<button type="button" ng-click="appendSongzhuanYuqiInfoFormat()">+预</button>
+						<button type="button" ng-click="replaceFupai()">R&nbsp;<span class="glyphicon glyphicon-time"></span></button>
+						</p>
+						<button type="button" ng-click="appendSongzhuanYuqiInfoFormat()">+&nbsp;送</button>
+						</p>
+						<button type="button" ng-click="replaceSongzhuanYuqi()">R&nbsp;送</button>
 					</label>
 					<div class="col-xs-9 col-md-3">
 						<textarea cols="50" rows="10" class="form-control" ng-model="item.miaoshu"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 col-md-5 control-label">快捷输入</label>
+					<div class="col-xs-9 col-md-3">
+						<input type="text" class="form-control" ng-model="shortContent" placeholder="复牌 / 高送预期  输入">
 					</div>
 				</div>
 				<div class="form-group">
