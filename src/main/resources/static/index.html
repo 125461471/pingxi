@@ -11,11 +11,47 @@
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/angular.js"></script>
+		<script src="/js/highcharts.js"></script>
 		<script>
 			var app = angular.module('app', []);
 			app.controller('indexController', ['$scope', '$http', function($scope, $http) {
 				
-
+				$('#container').highcharts({ 
+			        chart: {
+			            type: 'line'
+			        },
+			        title: {
+			            text: '收益曲线图'
+			        },
+			        subtitle: {
+			            text: '2016/10/31 - 2016/12/31',
+			        },
+			        tooltip: {
+// 			        	formatter: function () {
+// 			        		if (this.y >= 0) {
+// 			        			return this.x+'<br/>'+this.series.name+': <span style="font-weight:bold;color:red">'+this.y+' %</span>'
+// 			        		} else {
+// 			        			return this.x+'<br/>'+this.series.name+': <span style="font-weight:bold;color:green">'+this.y+' %</span>'
+// 			        		}
+// 			            },
+			            shared: true
+			        },
+			        xAxis: {
+			            categories: ["2016/10/31", "2016/11/01", "2016/11/02", "2016/11/03", "2016/11/04", "2016/11/05", "2016/11/08", "2016/11/09", "2016/11/10", "2016/11/11", "2016/11/12", "2016/11/15", "2016/11/16"]
+			        },
+			        yAxis: {
+			            title: {
+			                text: '收益率 ( % )'
+			            }
+			        },
+			        series: [{
+			            name: '本人',
+			            data: [-1.4, 5.3, 15.1, -5.7, -1.4, 5.3, 15.1, -5.7, -1.4, 5.3, 15.1, -5.7]
+			        }, {
+			            name: '上证',
+			            data: [-0.4, -0.1, 0.5, -1, -0.4, -0.1, 0.5, -1, -0.4, -0.1, 0.5, -1]
+			        }]
+			    });
 			}]);
 		</script>
 	</head>
@@ -23,6 +59,7 @@
 	<body ng-controller="indexController">
 		<div class="container">
 			平熙 - 黑爸爸旗下股票服务平台。
+			<div id="container"></div>
 		</div><!-- /.container -->
 	</body>
 </html>
