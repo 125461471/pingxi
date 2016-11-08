@@ -31,7 +31,7 @@ public class UserScopeCreator implements InitializingBean, ApplicationContextAwa
 			option.setScope("web");
 			option.setName("互联网用户");
 			option.setGroup("web@");
-			AuthAccount bean = context.getBean(AuthWebAccountImpl.SERVICE_NAME, AuthAccount.class);
+			AuthAccount bean = context.getBean(AuthWebAccountImpl.BEAN_NAME, AuthAccount.class);
 			option.setAuthAccountImpl(bean);
 			return option;
 		}
@@ -46,7 +46,7 @@ public class UserScopeCreator implements InitializingBean, ApplicationContextAwa
 			option.setScope("shladmin");
 			option.setName("管理员用户");
 			option.setGroup("shladmin@");
-			AuthAccount bean = context.getBean(AuthAdminAccountImpl.SERVICE_NAME, AuthAccount.class);
+			AuthAccount bean = context.getBean(AuthAdminAccountImpl.BEAN_NAME, AuthAccount.class);
 			option.setAuthAccountImpl(bean);
 			return option;
 		}

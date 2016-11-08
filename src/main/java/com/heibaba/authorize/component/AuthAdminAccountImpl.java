@@ -16,10 +16,10 @@ import com.heibaba.usercenter.repository.UserRepository;
  * @author shenhl
  *
  */
-@Component(AuthAdminAccountImpl.SERVICE_NAME)
+@Component(AuthAdminAccountImpl.BEAN_NAME)
 public class AuthAdminAccountImpl implements AuthAccount {
 	
-	public static final String SERVICE_NAME = "com.heibaba.authorize.component.authConsoleAccountImpl";
+	public static final String BEAN_NAME = "com.heibaba.authorize.component.authConsoleAccountImpl";
 	
 	@Autowired
 	UserRepository repository;
