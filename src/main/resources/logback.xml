@@ -9,7 +9,7 @@
         </encoder>
     </appender>
     
-    <property name="LOG_HOME" value="/logs" />
+    <property name="LOG_HOME" value="/opt/logs" />
 	<property name="LOG_APP" value="pingxi" />
 
     <!-- 时间滚动输出 level为 WARN 日志 -->
