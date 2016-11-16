@@ -76,8 +76,8 @@
 						}).success(function(data, status){
 							  //响应成功
 							  if (queryItem.selectedQueryType == 'daima') {
+								  $scope.itemList = [];
 								  if (data != "") {
-									  $scope.itemList = [];
 									  $scope.itemList.push(data);
 								  }
 							  } else {
