@@ -148,8 +148,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="extItem in item.extInfoList" class="row">
 						<div hidden="hidden">{{extItem.id}}</div>
-				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-unchecked"></span>{{extItem.fashengDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-9 col-md-10">{{extItem.miaoshu}}</div>
+				    	<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-unchecked"></span>{{extItem.fashengDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-10 col-md-10">{{extItem.miaoshu}}</div>
 					</div>
 				</div>
 				
@@ -159,8 +159,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="txItem in item.txInfoList" class="row">
 						<div hidden="hidden">{{txItem.id}}</div>
-				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-9 col-md-10">{{txItem.miaoshu}}</div>
+				    	<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-10 col-md-10">{{txItem.miaoshu}}</div>
 					</div>
 				</div>
 				
@@ -170,8 +170,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="tfpItem in item.tfpInfoList" class="row">
 						<div hidden="hidden">{{tfpItem.id}}</div>
-						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-time"></span>{{tfpItem.fupaiDate | date: "yyMMdd"}}</div>
-			    		<div class="col-xs-9 col-md-10">{{tfpItem.fupaiDate | date: "yyMMdd"}}复牌&nbsp;&nbsp;{{tfpItem.tingpaiDate | date: "yyMMdd"}}停牌</div>
+						<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-time"></span>{{tfpItem.fupaiDate | date: "yyMMdd"}}</div>
+			    		<div class="col-xs-10 col-md-10">{{tfpItem.fupaiDate | date: "yyMMdd"}}复牌&nbsp;&nbsp;{{tfpItem.tingpaiDate | date: "yyMMdd"}}停牌</div>
 					</div>
 				</div>
 			</div>
@@ -186,8 +186,8 @@
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
 					<div ng-repeat="txItem in txItemList" class="row">
-						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-9 col-md-10"><a href="index.html?queryParam={{txItem.daima}}" target="_blank">{{txItem.zhongwenming}}</a>{{txItem.miaoshu}}</div>
+						<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-10 col-md-10"><a href="index.html?queryParam={{txItem.daima}}" target="_blank">{{txItem.zhongwenming}}</a>{{txItem.miaoshu}}</div>
 					</div>
 				</div>
 			</div>
