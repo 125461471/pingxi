@@ -144,8 +144,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="extItem in item.extInfoList" class="row">
 						<div hidden="hidden">{{extItem.id}}</div>
-				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-unchecked"></span>{{extItem.fashengDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-7 col-md-8">{{extItem.miaoshu}}</div>
+				    	<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-unchecked"></span>{{extItem.fashengDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-8 col-md-8">{{extItem.miaoshu}}</div>
 				    	<div class="col-xs-2 col-md-2">
 				    		<a href="" ng-click="updateExt(item.zhongwenming, extItem)">修改</a>
 							<a href="" ng-dblclick="deleteInfo('ext', extItem.id)">删除</a>
@@ -158,8 +158,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="txItem in item.txInfoList" class="row">
 						<div hidden="hidden">{{txItem.id}}</div>
-				    	<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
-						<div class="col-xs-7 col-md-8">{{txItem.miaoshu}}</div>
+				    	<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-bell"></span>{{txItem.tixingDate | date: "yyMMdd"}}</div>
+						<div class="col-xs-8 col-md-8">{{txItem.miaoshu}}</div>
 				    	<div class="col-xs-2 col-md-2">
 				    		<a href="" ng-click="updateTx(item.zhongwenming, txItem)">修改</a>
 							<a href="" ng-dblclick="deleteInfo('tixing', txItem.id)">删除</a>
@@ -172,8 +172,8 @@
 				<div class="col-md-8">
 					<div ng-repeat="tfpItem in item.tfpInfoList" class="row">
 						<div hidden="hidden">{{tfpItem.id}}</div>
-						<div class="col-xs-3 col-md-2"><span class="glyphicon glyphicon-time"></span>{{tfpItem.fupaiDate | date: "yyMMdd"}}</div>
-			    		<div class="col-xs-7 col-md-8">{{tfpItem.fupaiDate | date: "yyMMdd"}}复牌&nbsp;&nbsp;{{tfpItem.tingpaiDate | date: "yyMMdd"}}停牌</div>
+						<div class="col-xs-2 col-md-2"><span class="glyphicon glyphicon-time"></span>{{tfpItem.fupaiDate | date: "yyMMdd"}}</div>
+			    		<div class="col-xs-8 col-md-8">{{tfpItem.fupaiDate | date: "yyMMdd"}}复牌&nbsp;&nbsp;{{tfpItem.tingpaiDate | date: "yyMMdd"}}停牌</div>
 				    	<div class="col-xs-2 col-md-2">
 				    		<a href="" ng-click="updateTfp(item.zhongwenming, tfpItem)">修改</a>
 							<a href="" ng-dblclick="deleteInfo('tingfupai', tfpItem.id)">删除</a>
