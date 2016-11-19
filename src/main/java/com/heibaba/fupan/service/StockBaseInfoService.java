@@ -63,6 +63,15 @@ public class StockBaseInfoService {
 
 		return stockBaseInfoRepository.findAll(new Sort("daima asc"));
 	}
+
+	/**
+	 * 按中文名查询
+	 * @return
+	 */
+	public StockBaseInfoEntity getByZhongwenming(String zhongwenming) {
+
+		return stockBaseInfoRepository.findOneByZhongwenming(zhongwenming);
+	}
 	
 	/**
 	 * 按所属板块查询

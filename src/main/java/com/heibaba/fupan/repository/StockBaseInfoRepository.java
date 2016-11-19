@@ -13,6 +13,8 @@ import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 
 public interface StockBaseInfoRepository extends JpaRepository<StockBaseInfoEntity, String> {
 	
+	StockBaseInfoEntity findOneByZhongwenming(String zhongwenming);
+	
 	List<StockBaseInfoEntity> findAll(Specification<StockBaseInfoEntity> spec);
 	
 	List<StockBaseInfoEntity> findAllByDaimaInOrderByJiluDateDesc(List<String> daimaList);

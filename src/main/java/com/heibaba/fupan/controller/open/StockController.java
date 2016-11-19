@@ -60,6 +60,22 @@ public class StockController extends FupanOpenParentController {
 	}
 	
 	/**
+	 * 按中文名查询
+	 * @return
+	 */
+	@RequestMapping(value = "/stock/base/zhongwenming/{zhongwenming}", method = RequestMethod.GET, headers = "version=1.0.0")
+	public StockBaseInfoDto getStockBaseInfoByZhongwenming(@PathVariable(value = "zhongwenming") String zhongwenming) {
+		
+		StockBaseInfoEntity entity = stockBaseInfoService.getByZhongwenming(zhongwenming);
+		StockBaseInfoDto dto = new StockBaseInfoDto();
+		if (entity != null) {
+			BeanUtils.copyProperties(entity, dto);
+		}
+		
+		return dto;
+	}
+	
+	/**
 	 * 按所属板块查询
 	 * @return
 	 */
