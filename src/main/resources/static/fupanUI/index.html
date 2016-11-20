@@ -129,7 +129,7 @@
 				<hr ng-if="$index > 0" />
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<h4>{{item.zhongwenming}}<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;<small>{{item.quyu}}</small></h4>
+					<h4>{{item.zhongwenming}}<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : ''}">{{item.quyu}}</small></h4>
 				</div>
 				
 				<div class="col-md-4"></div>
