@@ -1,9 +1,8 @@
 package com.heibaba.authorize.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.heibaba.common.exception.ChangePwdException;
 import com.heibaba.usercenter.entity.rdb.UserEntity;
