@@ -75,5 +75,16 @@ public class AssetsService {
 
 		return assetsRepository.findAllByUserIdAndAccountId(userId, accountId, pageable);
 	}
+	
+	public AssetsEntity getPreMonthAssets(int userId, int accountId) {
+
+		//先查询上个月月末资产
+		AssetsEntity entity = assetsRepository.findEndOfPreMonth(userId, accountId);
+		if (entity == null) {//查询本月月初资产
+			entity = assetsRepository.findBeginningOfThisMonth(userId, accountId);
+		}
+		
+		return entity;
+	}
 
 }

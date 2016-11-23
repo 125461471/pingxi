@@ -24,6 +24,7 @@
 				
 				$scope.init = function() {
 					$scope.query($scope.accountId);
+					$scope.queryPreMonthEomAssets($scope.accountId);
 				}
 				
 				$scope.query = function(page) {
@@ -69,6 +70,19 @@
 					
 						}
 					}
+				
+				$scope.queryPreMonthEomAssets = function() {
+					$http({
+						  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/premonth/eom",
+						  method:'GET',
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							//响应成功
+							$scope.preMonthEomAssets = data;
+						}).error(function(data, status){
+							//处理响应失败
+						});
+				}
 			}]);
 		</script>
 	</head>
@@ -101,6 +115,16 @@
 						<td>
 							<a href="" ng-click="updateAssets(item.id)">修改</a>
 <!-- 							<a href="" ng-dblclick="deleteAssets(item.id)">删除</a> -->
+						</td>
+					</tr>
+					<tr>
+						<td hidden>{{preMonthEomAssets.id}}</td>
+						<td>{{preMonthEomAssets.assetsDate | date:'yyyy/MM/dd'}}</td>
+						<td>{{preMonthEomAssets.assets | currency:'':0}}</td>
+						<td>{{preMonthEomAssets.freightSpace}}%</td>
+						<td>{{preMonthEomAssets.tpFreightSpace}}%</td>
+						<td>{{preMonthEomAssets.transfer>0?'+'+(preMonthEomAssets.transfer | currency:'':0):(preMonthEomAssets.transfer | currency:'':0)}}</td>
+						<td>
 						</td>
 					</tr>
 				</table>

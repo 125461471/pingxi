@@ -62,4 +62,11 @@ public class AssetsController extends UcParentController {
 		return assetsService.list(userId, accountId, pageable);
 	}
 	
+	@RequestMapping(value = "/account/{accountId}/assets/premonth/eom", method = RequestMethod.GET, headers = "version=1.0.0")
+	public AssetsEntity getPreMonthEomAssets(@PathVariable(value = "accountId") int accountId) {
+		
+		int userId = 1;//== to do ==>获取session中的userId ;
+		return assetsService.getPreMonthAssets(userId, accountId);
+	}
+	
 }
