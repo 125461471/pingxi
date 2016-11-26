@@ -1598,7 +1598,7 @@ function angularInit(element, bootstrap) {
  *   {{greeting}}
  * </div>
  *
- * <script src="angular.js"></script>
+ * <script src="angular.min.js"></script>
  * <script>
  *   var app = angular.module('demo', [])
  *   .controller('WelcomeController', function($scope) {
@@ -2563,7 +2563,7 @@ function publishExternalAPI(angular) {
  * Angular to manipulate the DOM in a cross-browser compatible way. **jqLite** implements only the most
  * commonly needed functionality with the goal of having a very small footprint.</div>
  *
- * To use `jQuery`, simply ensure it is loaded before the `angular.js` file.
+ * To use `jQuery`, simply ensure it is loaded before the `angular.min.js` file.
  *
  * <div class="alert">**Note:** all element references in Angular are always wrapped with jQuery or
  * jqLite; they are never raw DOM references.</div>
@@ -5588,7 +5588,7 @@ function Browser(window, document, $log, $sniffer) {
 
       // Don't change anything if previous and current URLs and states match. This also prevents
       // IE<10 from getting into redirect loop when in LocationHashbangInHtml5Url mode.
-      // See https://github.com/angular/angular.js/commit/ffb2701
+      // See https://github.com/angular/angular.min.js/commit/ffb2701
       if (lastBrowserUrl === url && (!$sniffer.history || sameState)) {
         return self;
       }
@@ -10165,7 +10165,7 @@ function $HttpProvider() {
     expect(data.getText()).toMatch(/Hello, \$http!/);
   });
 
-// Commented out due to flakes. See https://github.com/angular/angular.js/issues/9185
+// Commented out due to flakes. See https://github.com/angular/angular.min.js/issues/9185
 // it('should make a JSONP request to angularjs.org', function() {
 //   sampleJsonpBtn.click();
 //   fetchBtn.click();
@@ -15950,8 +15950,8 @@ function $RootScopeProvider() {
         //
         // see:
         // - https://code.google.com/p/v8/issues/detail?id=2073#c26
-        // - https://github.com/angular/angular.js/issues/6794#issuecomment-38648909
-        // - https://github.com/angular/angular.js/issues/1313#issuecomment-10378451
+        // - https://github.com/angular/angular.min.js/issues/6794#issuecomment-38648909
+        // - https://github.com/angular/angular.min.js/issues/1313#issuecomment-10378451
 
         this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead =
             this.$$childTail = this.$root = this.$$watchers = null;
@@ -17029,7 +17029,7 @@ function $SceDelegateProvider() {
  *      (even when the RegExp did not have the `^` and `$` codes.)  In addition, any flags
  *      present on the RegExp (such as multiline, global, ignoreCase) are ignored.
  *    - If you are generating your JavaScript from some other templating engine (not
- *      recommended, e.g. in issue [#4006](https://github.com/angular/angular.js/issues/4006)),
+ *      recommended, e.g. in issue [#4006](https://github.com/angular/angular.min.js/issues/4006)),
  *      remember to escape your regular expression (and be aware that you might need more than
  *      one level of escaping depending on your templating engine and the way you interpolated
  *      the value.)  Do make use of your platform's escaping mechanism as it might be good
@@ -17580,7 +17580,7 @@ function $SnifferProvider() {
       // Android has history.pushState, but it does not update location correctly
       // so let's not use the history API at all.
       // http://code.google.com/p/android/issues/detail?id=17471
-      // https://github.com/angular/angular.js/issues/904
+      // https://github.com/angular/angular.min.js/issues/904
 
       // older webkit browser (533.9) on Boxee box has exactly the same problem as Android has
       // so let's not use the history API also
@@ -17932,7 +17932,7 @@ var originUrl = urlResolve(window.location.href);
  *   http://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement
  *   http://www.aptana.com/reference/html/api/HTMLAnchorElement.html
  *   http://url.spec.whatwg.org/#urlutils
- *   https://github.com/angular/angular.js/pull/2902
+ *   https://github.com/angular/angular.min.js/pull/2902
  *   http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
  *
  * @kind function
@@ -23002,7 +23002,7 @@ var ngClassEvenDirective = classDirective('Even', 1);
  * multiple `ngCloak` directives to small portions of the page to permit progressive rendering
  * of the browser view.
  *
- * `ngCloak` works in cooperation with the following css rule embedded within `angular.js` and
+ * `ngCloak` works in cooperation with the following css rule embedded within `angular.min.js` and
  * `angular.min.js`.
  * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
@@ -23017,7 +23017,7 @@ var ngClassEvenDirective = classDirective('Even', 1);
  * during the compilation of the template it deletes the `ngCloak` element attribute, making
  * the compiled element visible.
  *
- * For the best result, the `angular.js` script must be loaded in the head section of the html
+ * For the best result, the `angular.min.js` script must be loaded in the head section of the html
  * document; alternatively, the css rule above must be included in the external stylesheet of the
  * application.
  *
@@ -23320,7 +23320,7 @@ var ngControllerDirective = [function() {
  *
  * This error is harmless but annoying. To prevent the error from showing up, put the `ngCsp`
  * directive on an element of the HTML document that appears before the `<script>` tag that loads
- * the `angular.js` file.
+ * the `angular.min.js` file.
  *
  * *Note: This directive is only available in the `ng-csp` and `data-ng-csp` attribute form.*
  *
@@ -23989,7 +23989,7 @@ forEach(
  * Note that when an element is removed using `ngIf` its scope is destroyed and a new scope
  * is created when the element is restored.  The scope created within `ngIf` inherits from
  * its parent scope using
- * [prototypal inheritance](https://github.com/angular/angular.js/wiki/Understanding-Scopes#javascript-prototypal-inheritance).
+ * [prototypal inheritance](https://github.com/angular/angular.min.js/wiki/Understanding-Scopes#javascript-prototypal-inheritance).
  * An important implication of this is if `ngModel` is used within `ngIf` to bind to
  * a javascript primitive defined in the parent scope. In this case any modifications made to the
  * variable within the child scope will override (hide) the value in the parent scope.
@@ -25458,7 +25458,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * For best practices on using `ngModel`, see:
  *
- *  - [Understanding Scopes](https://github.com/angular/angular.js/wiki/Understanding-Scopes)
+ *  - [Understanding Scopes](https://github.com/angular/angular.min.js/wiki/Understanding-Scopes)
  *
  * For basic examples, how to use `ngModel`, see:
  *
@@ -26561,7 +26561,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
         // NOTE: The label must be set before the value, otherwise IE10/11/EDGE create unresponsive
         // selects in certain circumstances when multiple selects are next to each other and display
         // the option list in listbox style, i.e. the select is [multiple], or specifies a [size].
-        // See https://github.com/angular/angular.js/issues/11314 for more info.
+        // See https://github.com/angular/angular.min.js/issues/11314 for more info.
         // This is unfortunately untestable with unit / e2e tests
         if (option.label !== element.label) {
           element.label = option.label;
@@ -26720,7 +26720,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  *
  * @description
  * `ngPluralize` is a directive that displays messages according to en-US localization rules.
- * These rules are bundled with angular.js, but can be overridden
+ * These rules are bundled with angular.min.js, but can be overridden
  * (see {@link guide/i18n Angular i18n} dev guide). You configure ngPluralize directive
  * by specifying the mappings between
  * [plural categories](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
@@ -27647,7 +27647,7 @@ var ngShowDirective = ['$animate', function($animate) {
         // we're adding a temporary, animation-specific class for ng-hide since this way
         // we can control when the element is actually displayed on screen without having
         // to have a global/greedy CSS selector that breaks when other animations are run.
-        // Read: https://github.com/angular/angular.js/issues/9103#issuecomment-58335845
+        // Read: https://github.com/angular/angular.min.js/issues/9103#issuecomment-58335845
         $animate[value ? 'removeClass' : 'addClass'](element, NG_HIDE_CLASS, {
           tempClasses: NG_HIDE_IN_PROGRESS_CLASS
         });
