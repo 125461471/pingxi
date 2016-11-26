@@ -18,8 +18,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
-import com.heibaba.common.utils.RedisUtil;
+import com.heibaba.fupan.dto.StockCacheDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockExtInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockTfpInfoEntity;
@@ -37,13 +38,11 @@ public class StockBaseInfoService {
 	private StockExtInfoRepository stockExtInfoRepository;
 	@Autowired
 	private StockTfpInfoRepository stockTfpInfoRepository;
-	@Autowired
-	private RedisUtil redis;
 	
 	public StockBaseInfoEntity save(StockBaseInfoEntity entity) {
 
 		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
-		redis.set(entity.getDaima(), entity.getZhongwenming());
+		Global.stocks.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
 		
 		return new_entity;
 	}
@@ -51,7 +50,7 @@ public class StockBaseInfoService {
 	public void delete(String daima) {
 
 		stockBaseInfoRepository.delete(daima);
-		redis.remove(daima);
+		Global.stocks.remove(daima);
 	}
 	
 	public StockBaseInfoEntity get(String daima) {

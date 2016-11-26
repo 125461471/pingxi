@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
-import com.heibaba.common.utils.RedisUtil;
 import com.heibaba.fupan.dto.StockBaseInfoDto;
 import com.heibaba.fupan.dto.StockTxInfoDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
@@ -24,8 +24,6 @@ import com.heibaba.fupan.service.StockTxInfoService;
 @RestController
 public class StockController extends FupanOpenParentController {
 	
-	@Autowired
-	private RedisUtil redis;
 	@Autowired
 	private StockBaseInfoService stockBaseInfoService;
 	@Autowired
@@ -121,7 +119,7 @@ public class StockController extends FupanOpenParentController {
 		for (StockTxInfoEntity record : listdb) {
 			StockTxInfoDto dto = new StockTxInfoDto();
 			BeanUtils.copyProperties(record, dto);
-			dto.setZhongwenming(String.valueOf(redis.get(record.getDaima())));
+			dto.setZhongwenming(Global.stocks.get(record.getDaima()).getZhongwenming());
 			list.add(dto);
 		}
 		

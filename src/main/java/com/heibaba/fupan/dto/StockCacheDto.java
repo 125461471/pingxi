@@ -2,7 +2,7 @@ package com.heibaba.fupan.dto;
 
 import java.io.Serializable;
 
-public class StockRedisDto implements Serializable {
+public class StockCacheDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -12,7 +12,7 @@ public class StockRedisDto implements Serializable {
 	
 	private String zhongwenming;
 	
-	public StockRedisDto(String daima, String pinyin, String zhongwenming) {
+	public StockCacheDto(String daima, String pinyin, String zhongwenming) {
 		this.daima = daima;
 		this.pinyin = pinyin;
 		this.zhongwenming = zhongwenming;
