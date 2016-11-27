@@ -8,13 +8,51 @@
 		<link rel="bookmark" href="../favicon.ico"/>
 		<title>平熙</title>
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/angular-auto-complete.min.css">
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/angular.min.js"></script>
 		<script src="../js/urlUtil.js"></script>
+		<script src="../js/angular-sanitize.min.js"></script>
+		<script src="../js/underscore.min.js"></script>
+		<script src="../js/angular-auto-complete.min.js"></script>
 		<script>
-			var app = angular.module('app', []);
+			var app = angular.module('app', ['autoCompleteModule']);
 			app.controller('indexController', ['$scope', '$http', function($scope, $http) {
+				
+				//== autoComplete设置  ==> start
+				var stocks;
+				
+				$http({
+				  	url:"states.txt",
+				 	method:'GET'
+				}).success(function(data, status) {
+					//响应成功
+					stocks = [{"code": "300506", "label": "300506 MJH 名家汇"}, {"code": "300503", "label": "300503 HTKJ 昊天科技"}];
+				}).error(function(data, status) {
+					//处理响应失败
+					console.log("失败！"+data.errorMsg);
+				});
+				
+				this.autoCompleteOptions = {
+	                minimumChars: '2',
+	                data: function (inputValue) {
+	                    var inputValueUpper = inputValue.toUpperCase();
+	                    return _.filter(stocks, function (value) {
+	                        return value.label.match(inputValueUpper);//包含输入的字符的
+	                    });
+	                },
+	                renderItem: function(item) {
+	                    return {
+	                        value: item.code,
+	                        label: item.label
+	                    };
+	                },
+	                itemSelected: function (e) {
+	                	$scope.query($scope.queryItem);
+	                }
+	            }
+				//== autoComplete设置  ==> end
 				
 				$scope.queryItem = {queryString:""};
 				
@@ -100,7 +138,7 @@
 		</script>
 	</head>
 	
-	<body ng-controller="indexController" ng-init="getUrlParams()">
+	<body ng-controller="indexController as ctrl" ng-init="getUrlParams()">
 		<div class="container">
 			<form class="form-horizontal" role="form">
 				<div class="form-group">
@@ -112,7 +150,7 @@
 					<input type="hidden" ng-model="queryItem.selectedQueryType"/>
 					<div class="col-md-4"></div>
 					<div class="col-xs-7 col-md-3">
-						<input type="text" class="form-control" ng-model="queryItem.queryString" placeholder="6位代码、关键字、#板块">
+						<input type="text" class="form-control" ng-model="queryItem.queryString" placeholder="6位代码、关键字、#板块" auto-complete="ctrl.autoCompleteOptions">
 					</div>
 					<button type="button" class="col-xs-2 col-md-1 btn btn-primary" ng-click="query(queryItem)">查询</button>
 				</div>
