@@ -1,6 +1,7 @@
 package com.heibaba.fupan.controller.open;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
+import com.heibaba.fupan.dto.AutoCompleteDto;
 import com.heibaba.fupan.dto.StockBaseInfoDto;
 import com.heibaba.fupan.dto.StockTxInfoDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
@@ -119,7 +121,7 @@ public class StockController extends FupanOpenParentController {
 		for (StockTxInfoEntity record : listdb) {
 			StockTxInfoDto dto = new StockTxInfoDto();
 			BeanUtils.copyProperties(record, dto);
-			dto.setZhongwenming(Global.stocks.get(record.getDaima()).getZhongwenming());
+			dto.setZhongwenming(Global.stockMap.get(record.getDaima()).getZhongwenming());
 			list.add(dto);
 		}
 		
@@ -144,6 +146,16 @@ public class StockController extends FupanOpenParentController {
 	public List<String> getLatestFupanList(@PathVariable(value = "top") int top) {
 		
 		return stockExtInfoService.findLatestFupanDateList(top);
+	}
+	
+	/**
+	 * AutoComplete组件数据查询
+	 * @return
+	 */
+	@RequestMapping(value = "/stock/base/autocomplete", method = RequestMethod.GET, headers = "version=1.0.0")
+	public LinkedList<AutoCompleteDto> getStockBaseInfoAutoComplete() {
+		
+		return Global.stockList;
 	}
 	
 }

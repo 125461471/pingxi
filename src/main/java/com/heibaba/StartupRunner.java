@@ -1,6 +1,5 @@
 package com.heibaba;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.heibaba.common.Global;
+import com.heibaba.fupan.dto.AutoCompleteDto;
 import com.heibaba.fupan.dto.StockCacheDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 import com.heibaba.fupan.repository.StockBaseInfoRepository;
@@ -34,10 +34,11 @@ public class StartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 		
 		logger.info("加载项加载开始 ......");
-		//股票信息写入缓存[代码:拼音,代码,中文名]
+		//股票信息写入缓存[代码:拼音,代码,中文名][代码,代码 拼音 中文名]
 		List<StockBaseInfoEntity> list = stockBaseInfoRepository.findAll();
 		for (StockBaseInfoEntity entity : list) {
-			Global.stocks.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+			Global.stockMap.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+			Global.stockList.add(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
 		}
 		logger.info("加载项加载成功 ......");
     }

@@ -42,7 +42,8 @@ public class StockBaseInfoService {
 	public StockBaseInfoEntity save(StockBaseInfoEntity entity) {
 
 		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
-		Global.stocks.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+		Global.stockMap.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+		//== to do ==> Global.stockList中更新相应记录
 		
 		return new_entity;
 	}
@@ -50,7 +51,8 @@ public class StockBaseInfoService {
 	public void delete(String daima) {
 
 		stockBaseInfoRepository.delete(daima);
-		Global.stocks.remove(daima);
+		Global.stockMap.remove(daima);
+		//== to do ==> Global.stockList中删除相应记录
 	}
 	
 	public StockBaseInfoEntity get(String daima) {

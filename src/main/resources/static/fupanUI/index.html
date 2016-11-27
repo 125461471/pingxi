@@ -24,11 +24,12 @@
 				var stocks;
 				
 				$http({
-				  	url:"states.txt",
-				 	method:'GET'
+				  	url:"/pingxi/fupan/api/stock/base/autocomplete",
+				 	method:'GET',
+					headers:{"version":"1.0.0"}
 				}).success(function(data, status) {
 					//响应成功
-					stocks = [{"code": "300506", "label": "300506 MJH 名家汇"}, {"code": "300503", "label": "300503 HTKJ 昊天科技"}];
+					stocks = data;
 				}).error(function(data, status) {
 					//处理响应失败
 					console.log("失败！"+data.errorMsg);
