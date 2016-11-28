@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
+import com.heibaba.fupan.dto.AutoCompleteDto;
 import com.heibaba.fupan.dto.StockCacheDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockExtInfoEntity;
@@ -43,7 +44,13 @@ public class StockBaseInfoService {
 
 		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
 		Global.stockMap.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
-		//== to do ==> Global.stockList中更新相应记录
+		for (AutoCompleteDto stock:Global.stockList) {
+			if (entity.getDaima().equals(stock.getValue())) {
+				Global.stockList.remove(stock);
+				break;
+			}
+		}
+		Global.stockList.push(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
 		
 		return new_entity;
 	}
@@ -52,7 +59,12 @@ public class StockBaseInfoService {
 
 		stockBaseInfoRepository.delete(daima);
 		Global.stockMap.remove(daima);
-		//== to do ==> Global.stockList中删除相应记录
+		for (AutoCompleteDto stock:Global.stockList) {
+			if (daima.equals(stock.getValue())) {
+				Global.stockList.remove(stock);
+				break;
+			}
+		}
 	}
 	
 	public StockBaseInfoEntity get(String daima) {
