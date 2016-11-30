@@ -65,8 +65,8 @@
 				
 				$scope.appendSongzhuanYuqiInfoFormat = function() {
 					var format = "每股净资产$1$，公积金$2$，未分配利润$3$，总股本$4$亿股，流通股$5$亿股，\n总市值$6$亿元，流通市值$7$亿元，前10大流通股东占【$8$%】，实际流通市值【$shijiLiutong$亿元】，当前价$9$。";
-					format += "\n一/三季报净利同比增长/减少**。";
-					format += "\n中/年报    净利同比预增/降**。";
+					format += "\n**报净利同比增长/减少**。";
+					format += "\n**报净利同比预增/降**。";
 					format += "\n解禁提醒**";
 					if ($scope.item.miaoshu != undefined) {
 						$scope.item.miaoshu += format;
