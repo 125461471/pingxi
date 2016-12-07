@@ -39,6 +39,10 @@
 						});
 				}
 				
+				$scope.findQuyuStocks = function(quyu) {
+					window.location.href="/pingxi/fupanUI/index.html?queryParam="+quyu.replace(/\@/g,"%40");
+				}
+				
 				$scope.findBankuaiStocks = function(bankuai) {
 					window.location.href="/pingxi/fupanUI/index.html?queryParam="+bankuai.replace(/\#/g,"%23");
 				}
@@ -72,7 +76,12 @@
 				
 				<div class="col-md-4"></div>
 				<div class="col-md-8">
-					<h4>{{item.zhongwenming}}<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : ''}">{{item.quyu}}</small></h4>
+					<h4>{{item.zhongwenming}}
+						<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;
+						<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : ''}">
+							<span ng-repeat="qy in item.quyu.split('-') track by $index" ng-click="findQuyuStocks('@'+qy)">{{$index==0?qy+'&nbsp;-&nbsp;':qy}}</span>
+						</small>
+					</h4>
 				</div>
 				
 				<div class="col-md-4"></div>
