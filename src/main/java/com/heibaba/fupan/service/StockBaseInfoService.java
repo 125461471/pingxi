@@ -87,6 +87,26 @@ public class StockBaseInfoService {
 	}
 	
 	/**
+	 * 按所在区域查询
+	 * @return
+	 */
+	public List<StockBaseInfoEntity> getByQuyu(String quyu) {
+
+		List<StockBaseInfoEntity> list = stockBaseInfoRepository.findAll(new Specification<StockBaseInfoEntity>() {
+	        @Override
+	        public Predicate toPredicate(Root<StockBaseInfoEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+	            Predicate predicate = cb.conjunction();
+	            List<Expression<Boolean>> expressions = predicate.getExpressions();
+	            expressions.add(cb.like(root.<String>get("quyu"), "%"+quyu+"%"));
+	            query.orderBy(cb.desc(root.<Date>get("jiluDate")));
+	            return predicate;
+	        }
+	    });
+	    
+	    return list;
+	}
+	
+	/**
 	 * 按所属板块查询
 	 * @return
 	 */

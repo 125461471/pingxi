@@ -76,6 +76,18 @@ public class StockController extends FupanOpenParentController {
 	}
 	
 	/**
+	 * 按在区域查询
+	 * @return
+	 */
+	@RequestMapping(value = "/stock/quyu", method = RequestMethod.GET, headers = "version=1.0.0")
+	public List<StockBaseInfoEntity> getByQuyu(@RequestParam(value = "quyu", required = true) String quyu) {
+		
+		quyu = quyu.substring(1);
+		return stockBaseInfoService.getByQuyu(quyu);
+	}
+	
+	
+	/**
 	 * 按所属板块查询
 	 * @return
 	 */
