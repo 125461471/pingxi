@@ -161,7 +161,7 @@
 <!-- 					</div> -->
 					<input type="hidden" ng-model="queryItem.selectedQueryType"/>
 					<div class="col-md-4"></div>
-					<div class="col-xs-7 col-md-3">
+					<div class="col-xs-8 col-md-3">
 						<input type="text" class="form-control" ng-model="queryItem.queryString" placeholder="6位代码、关键字、#板块、@区域" auto-complete="ctrl.autoCompleteOptions">
 					</div>
 					<button type="button" class="col-xs-2 col-md-1 btn btn-primary" ng-click="query(queryItem)">查询</button>
@@ -181,7 +181,7 @@
 				<div class="col-md-8">
 					<h4>{{item.zhongwenming}}
 						<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;
-						<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : ''}">
+							<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : item.quyu.indexOf('辽宁')>-1||item.quyu.indexOf('吉林')>-1||item.quyu.indexOf('黑龙江')>-1 ? 'green' : ''}">
 							<span ng-repeat="qy in item.quyu.split('-') track by $index" ng-click="findQuyuStocks('@'+qy)">{{$index==0?qy+'&nbsp;-&nbsp;':qy}}</span>
 						</small>
 					</h4>

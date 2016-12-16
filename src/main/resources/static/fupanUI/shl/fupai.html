@@ -102,7 +102,7 @@
 				<div class="col-md-8">
 					<h4>{{item.zhongwenming}}
 						<span ng-show="item.rongzi==1" style="color:red">(融)</span>&nbsp;{{item.daima}}&nbsp;&nbsp;
-						<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : ''}">
+						<small ng-style="{color: item.quyu.indexOf('广东')>-1 ? 'red' : item.quyu.indexOf('辽宁')>-1||item.quyu.indexOf('吉林')>-1||item.quyu.indexOf('黑龙江')>-1 ? 'green' : ''}">
 							<span ng-repeat="qy in item.quyu.split('-') track by $index">{{$index==0?qy+'&nbsp;-&nbsp;':qy}}</span>&nbsp;&nbsp;
 							<a href="" ng-click="updateBase(item)">修改</a>
 							<a href="" ng-dblclick="deleteInfo('base', item.daima)">删除</a>
