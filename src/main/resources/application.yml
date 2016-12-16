@@ -24,7 +24,7 @@ spring:
     dbcp:
       initial-size: 1
       min-idle: 1
-      max-idle: 10
+      max-idle: 3
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
@@ -59,7 +59,7 @@ spring:
     dbcp:
       initial-size: 1
       min-idle: 1
-      max-idle: 10
+      max-idle: 3
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
@@ -94,7 +94,7 @@ spring:
     dbcp:
       initial-size: 1
       min-idle: 1
-      max-idle: 10
+      max-idle: 3
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
