@@ -1,18 +1,19 @@
 package com.heibaba.fupan.dto;
 
-import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-public class StockCacheDto implements Serializable {
+@RedisHash(value = "stockChiefInfo")
+public class StockChiefInfoDto {
 	
-	private static final long serialVersionUID = 1L;
-
+	@Id
 	private String daima;
 	
 	private String pinyin;
 	
 	private String zhongwenming;
 	
-	public StockCacheDto(String daima, String pinyin, String zhongwenming) {
+	public StockChiefInfoDto(String daima, String pinyin, String zhongwenming) {
 		this.daima = daima;
 		this.pinyin = pinyin;
 		this.zhongwenming = zhongwenming;

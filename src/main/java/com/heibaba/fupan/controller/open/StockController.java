@@ -1,7 +1,6 @@
 package com.heibaba.fupan.controller.open;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
 import com.heibaba.fupan.dto.AutoCompleteDto;
 import com.heibaba.fupan.dto.StockBaseInfoDto;
 import com.heibaba.fupan.dto.StockTxInfoDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockTxInfoEntity;
+import com.heibaba.fupan.repository.AutoCompleteRepository;
+import com.heibaba.fupan.repository.StockChiefInfoRepository;
 import com.heibaba.fupan.service.StockBaseInfoService;
 import com.heibaba.fupan.service.StockExtInfoService;
 import com.heibaba.fupan.service.StockTxInfoService;
@@ -32,6 +32,10 @@ public class StockController extends FupanOpenParentController {
 	private StockExtInfoService stockExtInfoService;
 	@Autowired
 	private StockTxInfoService stockTxInfoService;
+	@Autowired
+	private StockChiefInfoRepository stockChiefInfoRepository;
+	@Autowired
+	private AutoCompleteRepository autoCompleteRepository;
 	
 	/**
 	 * 按代码查询
@@ -133,7 +137,8 @@ public class StockController extends FupanOpenParentController {
 		for (StockTxInfoEntity record : listdb) {
 			StockTxInfoDto dto = new StockTxInfoDto();
 			BeanUtils.copyProperties(record, dto);
-			dto.setZhongwenming(Global.stockMap.get(record.getDaima()).getZhongwenming());
+//			dto.setZhongwenming(Global.stockMap.get(record.getDaima()).getZhongwenming());
+			dto.setZhongwenming(stockChiefInfoRepository.findOne(record.getDaima()).getZhongwenming());
 			list.add(dto);
 		}
 		
@@ -165,9 +170,10 @@ public class StockController extends FupanOpenParentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/stock/base/autocomplete", method = RequestMethod.GET, headers = "version=1.0.0")
-	public LinkedList<AutoCompleteDto> getStockBaseInfoAutoComplete() {
+	public Iterable<AutoCompleteDto> getStockBaseInfoAutoComplete() {
 		
-		return Global.stockList;
+//		return Global.stockList;
+		return autoCompleteRepository.findAll();
 	}
 	
 }

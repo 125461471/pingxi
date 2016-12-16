@@ -1,11 +1,12 @@
 package com.heibaba.fupan.dto;
 
-import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-public class AutoCompleteDto implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@RedisHash(value = "stockAutoComplete")
+public class AutoCompleteDto {
 
+	@Id
 	private String value;
 	private String label;
 	

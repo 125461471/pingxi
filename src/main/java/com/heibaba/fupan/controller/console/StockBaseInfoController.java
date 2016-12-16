@@ -21,14 +21,14 @@ public class StockBaseInfoController extends FupanConsoleParentController {
 	@RequestMapping(value = "/stock/base", method = RequestMethod.POST, headers = "version=1.0.0")
 	public StockBaseInfoEntity add(@RequestBody StockBaseInfoEntity entity) {
 		
-		return stockBaseInfoService.save(entity);
+		return stockBaseInfoService.add(entity);
 	}
 	
 	@RequestMapping(value = "/stock/base/{daima}", method = RequestMethod.PUT, headers = "version=1.0.0")
 	public StockBaseInfoEntity update(@PathVariable(value = "daima") String daima, 
 										@RequestBody StockBaseInfoEntity entity) {
 		entity.setDaima(daima);
-		return stockBaseInfoService.save(entity);
+		return stockBaseInfoService.update(entity);
 	}
 	
 	@RequestMapping(value = "/stock/base/{daima}", method = RequestMethod.DELETE, headers = "version=1.0.0")

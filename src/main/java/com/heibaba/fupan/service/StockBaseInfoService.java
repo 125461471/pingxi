@@ -18,14 +18,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.heibaba.common.Global;
 import com.heibaba.common.utils.DateUtil;
 import com.heibaba.fupan.dto.AutoCompleteDto;
-import com.heibaba.fupan.dto.StockCacheDto;
+import com.heibaba.fupan.dto.StockChiefInfoDto;
 import com.heibaba.fupan.entity.rdb.StockBaseInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockExtInfoEntity;
 import com.heibaba.fupan.entity.rdb.StockTfpInfoEntity;
+import com.heibaba.fupan.repository.AutoCompleteRepository;
 import com.heibaba.fupan.repository.StockBaseInfoRepository;
+import com.heibaba.fupan.repository.StockChiefInfoRepository;
 import com.heibaba.fupan.repository.StockExtInfoRepository;
 import com.heibaba.fupan.repository.StockTfpInfoRepository;
 
@@ -39,32 +40,56 @@ public class StockBaseInfoService {
 	private StockExtInfoRepository stockExtInfoRepository;
 	@Autowired
 	private StockTfpInfoRepository stockTfpInfoRepository;
+	@Autowired
+	private StockChiefInfoRepository stockChiefInfoRepository;
+	@Autowired
+	private AutoCompleteRepository autoCompleteRepository;
 	
-	public StockBaseInfoEntity save(StockBaseInfoEntity entity) {
+//	public StockBaseInfoEntity save(StockBaseInfoEntity entity) {
+//
+//		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
+//		Global.stockMap.put(entity.getDaima(), new StockChiefInfoDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+//		for (AutoCompleteDto stock:Global.stockList) {
+//			if (entity.getDaima().equals(stock.getValue())) {
+//				Global.stockList.remove(stock);
+//				break;
+//			}
+//		}
+//		Global.stockList.push(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
+//		
+//		return new_entity;
+//	}
+	
+	public StockBaseInfoEntity add(StockBaseInfoEntity entity) {
 
 		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
-		Global.stockMap.put(entity.getDaima(), new StockCacheDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
-		for (AutoCompleteDto stock:Global.stockList) {
-			if (entity.getDaima().equals(stock.getValue())) {
-				Global.stockList.remove(stock);
-				break;
-			}
-		}
-		Global.stockList.push(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
-		
+		stockChiefInfoRepository.save(new StockChiefInfoDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+		autoCompleteRepository.save(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
+
+		return new_entity;
+	}
+	
+	public StockBaseInfoEntity update(StockBaseInfoEntity entity) {
+
+		StockBaseInfoEntity new_entity = stockBaseInfoRepository.save(entity);
+		stockChiefInfoRepository.save(new StockChiefInfoDto(entity.getDaima(), entity.getPinyin(), entity.getZhongwenming()));
+		autoCompleteRepository.save(new AutoCompleteDto(entity.getDaima(), entity.getDaima()+" "+entity.getPinyin()+" "+entity.getZhongwenming()));
+
 		return new_entity;
 	}
 
 	public void delete(String daima) {
 
 		stockBaseInfoRepository.delete(daima);
-		Global.stockMap.remove(daima);
-		for (AutoCompleteDto stock:Global.stockList) {
-			if (daima.equals(stock.getValue())) {
-				Global.stockList.remove(stock);
-				break;
-			}
-		}
+		stockChiefInfoRepository.delete(daima);
+		autoCompleteRepository.delete(daima);
+//		Global.stockMap.remove(daima);
+//		for (AutoCompleteDto stock:Global.stockList) {
+//			if (daima.equals(stock.getValue())) {
+//				Global.stockList.remove(stock);
+//				break;
+//			}
+//		}
 	}
 	
 	public StockBaseInfoEntity get(String daima) {
