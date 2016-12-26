@@ -101,7 +101,7 @@
 						<th>日期</th>
 						<th>资产</th>
 						<th>仓位</th>
-						<th>停仓</th>
+						<th>停牌</th>
 						<th>转账</th>
 						<th>操作</th>
 					</tr>
@@ -110,7 +110,7 @@
 						<td>{{item.assetsDate | date:'yyyy/MM/dd'}}</td>
 						<td>{{item.assets | currency:'':0}}</td>
 						<td>{{item.freightSpace}}%</td>
-						<td>{{item.tpFreightSpace}}%</td>
+						<td>{{item.tpAssets}}</td>
 						<td>{{item.transfer>0?'+'+(item.transfer | currency:'':0):(item.transfer | currency:'':0)}}</td>
 						<td>
 							<a href="" ng-click="updateAssets(item.id)">修改</a>
@@ -122,7 +122,7 @@
 						<td>{{preMonthEomAssets.assetsDate | date:'yyyy/MM/dd'}}</td>
 						<td>{{preMonthEomAssets.assets | currency:'':0}}</td>
 						<td>{{preMonthEomAssets.freightSpace}}%</td>
-						<td>{{preMonthEomAssets.tpFreightSpace}}%</td>
+						<td>{{preMonthEomAssets.tpAssets}}</td>
 						<td>{{preMonthEomAssets.transfer>0?'+'+(preMonthEomAssets.transfer | currency:'':0):(preMonthEomAssets.transfer | currency:'':0)}}</td>
 						<td>
 						</td>

@@ -66,13 +66,20 @@ public class AssetsEntity extends BaseEntity implements Serializable {
 	@Column(name = "freight_space")
 	private int freightSpace;
 	
+//	/**
+//	 * 今日停牌仓位
+//	 */
+//	@Min(0)
+//	@Max(200)
+//	@Column(name = "tp_freight_space")
+//	private int tpFreightSpace;
+	
 	/**
-	 * 今日停牌仓位
+	 * 今日停牌资产
 	 */
 	@Min(0)
-	@Max(200)
-	@Column(name = "tp_freight_space")
-	private int tpFreightSpace;
+	@Column(name = "tp_assets")
+	private int tpAssets;
 	
 	/**
 	 * 资产日期
@@ -131,12 +138,12 @@ public class AssetsEntity extends BaseEntity implements Serializable {
 		this.freightSpace = freightSpace;
 	}
 
-	public int getTpFreightSpace() {
-		return tpFreightSpace;
+	public int getTpAssets() {
+		return tpAssets;
 	}
 
-	public void setTpFreightSpace(int tpFreightSpace) {
-		this.tpFreightSpace = tpFreightSpace;
+	public void setTpAssets(int tpAssets) {
+		this.tpAssets = tpAssets;
 	}
 
 	public Date getAssetsDate() {
