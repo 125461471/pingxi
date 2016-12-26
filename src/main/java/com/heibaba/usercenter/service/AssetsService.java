@@ -1,5 +1,7 @@
 package com.heibaba.usercenter.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,6 +87,18 @@ public class AssetsService {
 		}
 		
 		return entity;
+	}
+	
+	public double getRateOfMonthReturn(int userId, int accountId) {
+
+		//先查询上个月月末资产
+		AssetsEntity preMonthAssets = getPreMonthAssets(userId, accountId);
+		//再查询最新资产
+		AssetsEntity latestAssets = assetsRepository.findEndOfMonth(userId, accountId, new Date());
+		
+		return Math.round(
+							((latestAssets.getAssets()-preMonthAssets.getAssets())*100/preMonthAssets.getAssets()) * 100
+						 ) * 0.01;
 	}
 
 }

@@ -62,11 +62,28 @@ public class AssetsController extends UcParentController {
 		return assetsService.list(userId, accountId, pageable);
 	}
 	
+	/**
+	 * 获取上个月月末资产
+	 * @param accountId
+	 * @return
+	 */
 	@RequestMapping(value = "/account/{accountId}/assets/premonth/eom", method = RequestMethod.GET, headers = "version=1.0.0")
 	public AssetsEntity getPreMonthEomAssets(@PathVariable(value = "accountId") int accountId) {
 		
 		int userId = 1;//== to do ==>获取session中的userId ;
 		return assetsService.getPreMonthAssets(userId, accountId);
+	}
+	
+	/**
+	 * 获取本月月度收益率
+	 * @param accountId
+	 * @return
+	 */
+	@RequestMapping(value = "/account/{accountId}/assets/month/rateofreturn", method = RequestMethod.GET, headers = "version=1.0.0")
+	public double getRateOfMonthReturn(@PathVariable(value = "accountId") int accountId) {
+		
+		int userId = 1;//== to do ==>获取session中的userId ;
+		return assetsService.getRateOfMonthReturn(userId, accountId);
 	}
 	
 }

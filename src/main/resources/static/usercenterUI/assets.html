@@ -25,26 +25,27 @@
 				$scope.init = function() {
 					$scope.query($scope.accountId);
 					$scope.queryPreMonthEomAssets($scope.accountId);
+					$scope.queryRateOfMonthReturn($scope.accountId);
 				}
 				
 				$scope.query = function(page) {
 					page = page ? (page-1) : 0;
 					$http({
-						  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets",
-						  method:'GET',
-						  params:{
-							"page":page,
-							"size":$scope.pagesize,
-							"sort":$scope.pagesort
-						  },
-						  headers:{"version":"1.0.0"}
-						}).success(function(data, status){
-							//响应成功
-							$scope.items = data.content;
-							$scope.totalItems = data.totalElements;
-						}).error(function(data, status){
-							//处理响应失败
-						});
+					  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets",
+					  method:'GET',
+					  params:{
+						"page":page,
+						"size":$scope.pagesize,
+						"sort":$scope.pagesort
+					  },
+					  headers:{"version":"1.0.0"}
+					}).success(function(data, status){
+						//响应成功
+						$scope.items = data.content;
+						$scope.totalItems = data.totalElements;
+					}).error(function(data, status){
+						//处理响应失败
+					});
 				}
 				
 				$scope.updateAssets = function(id) {
@@ -56,32 +57,45 @@
 				$scope.deleteAssets = function(id) {
 					if (id != undefined) {
 						$http({
-							  url:'/pingxi/usercenter/account/'+$scope.accountId+'/assets/'+id,
-							  method:'DELETE',
-							  headers:{"version":"1.0.0"}
-							}).success(function(data, status){
-								  //响应成功
-								  alert("删除成功");
-								  $scope.query($scope.queryItem);
-							}).error(function(data, status){
-								  //处理响应失败
-								  alert("删除失败！"+data.errorMsg);
-							});
-					
-						}
+						  url:'/pingxi/usercenter/account/'+$scope.accountId+'/assets/'+id,
+						  method:'DELETE',
+						  headers:{"version":"1.0.0"}
+						}).success(function(data, status){
+							  //响应成功
+							  alert("删除成功");
+							  $scope.query($scope.queryItem);
+						}).error(function(data, status){
+							  //处理响应失败
+							  alert("删除失败！"+data.errorMsg);
+						});
+				
 					}
+				}
 				
 				$scope.queryPreMonthEomAssets = function() {
 					$http({
-						  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/premonth/eom",
-						  method:'GET',
-						  headers:{"version":"1.0.0"}
-						}).success(function(data, status){
-							//响应成功
-							$scope.preMonthEomAssets = data;
-						}).error(function(data, status){
-							//处理响应失败
-						});
+					  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/premonth/eom",
+					  method:'GET',
+					  headers:{"version":"1.0.0"}
+					}).success(function(data, status){
+						//响应成功
+						$scope.preMonthEomAssets = data;
+					}).error(function(data, status){
+						//处理响应失败
+					});
+				}
+				
+				$scope.queryRateOfMonthReturn = function() {
+					$http({
+					  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/month/rateofreturn",
+					  method:'GET',
+					  headers:{"version":"1.0.0"}
+					}).success(function(data, status){
+						//响应成功
+						$scope.rateOfMonthReturn = data;
+					}).error(function(data, status){
+						//处理响应失败
+					});
 				}
 			}]);
 		</script>
@@ -128,6 +142,12 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+				<span>本月收益率：{{rateOfMonthReturn}}%</span>
+				</div>
 			</div>
 		</div><!-- /.container -->
 	</body>
