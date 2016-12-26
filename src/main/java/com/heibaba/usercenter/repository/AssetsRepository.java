@@ -34,12 +34,24 @@ public interface AssetsRepository extends JpaRepository<AssetsEntity, Integer> {
 	 */
 	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId and DATE_FORMAT(a.assets_date, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') order by a.assets_date asc limit 1", nativeQuery=true)
 	AssetsEntity findBeginningOfThisMonth(@Param("userId") int userId, @Param("accountId") int accountId);
-	
+
 	/**
 	 * 查询上个月月末资产
 	 */
 	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId and PERIOD_DIFF(DATE_FORMAT(NOW() , '%Y%m'), DATE_FORMAT(a.assets_date, '%Y%m')) = 1 order by a.assets_date desc limit 1", nativeQuery=true)
 	AssetsEntity findEndOfPreMonth(@Param("userId") int userId, @Param("accountId") int accountId);
+
+	/**
+	 * 查询本年年初资产
+	 */
+	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId and DATE_FORMAT(a.assets_date, '%Y') = DATE_FORMAT(CURDATE(), '%Y') order by a.assets_date asc limit 1", nativeQuery=true)
+	AssetsEntity findBeginningOfThisYear(@Param("userId") int userId, @Param("accountId") int accountId);
+
+	/**
+	 * 查询最新资产
+	 */
+	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId order by a.assets_date desc limit 1", nativeQuery=true)
+	AssetsEntity findLatest(@Param("userId") int userId, @Param("accountId") int accountId);
 
 	Page<AssetsEntity> findAllByUserIdAndAccountId(int userId, int accountId, Pageable pageable);
 	

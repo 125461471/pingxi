@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.heibaba.usercenter.dto.LatestRateOfReturnDto;
 import com.heibaba.usercenter.entity.rdb.AssetsEntity;
 import com.heibaba.usercenter.service.AssetsService;
 
@@ -80,10 +81,10 @@ public class AssetsController extends UcParentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/account/{accountId}/assets/month/rateofreturn", method = RequestMethod.GET, headers = "version=1.0.0")
-	public double getRateOfMonthReturn(@PathVariable(value = "accountId") int accountId) {
+	public LatestRateOfReturnDto getRateOfMonthReturn(@PathVariable(value = "accountId") int accountId) {
 		
 		int userId = 1;//== to do ==>获取session中的userId ;
-		return assetsService.getRateOfMonthReturn(userId, accountId);
+		return assetsService.getLatestRateOfReturn(userId, accountId);
 	}
 	
 }

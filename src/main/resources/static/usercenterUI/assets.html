@@ -25,7 +25,7 @@
 				$scope.init = function() {
 					$scope.query($scope.accountId);
 					$scope.queryPreMonthEomAssets($scope.accountId);
-					$scope.queryRateOfMonthReturn($scope.accountId);
+					$scope.queryLatestRateOfReturn($scope.accountId);
 				}
 				
 				$scope.query = function(page) {
@@ -85,14 +85,14 @@
 					});
 				}
 				
-				$scope.queryRateOfMonthReturn = function() {
+				$scope.queryLatestRateOfReturn = function() {
 					$http({
 					  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/month/rateofreturn",
 					  method:'GET',
 					  headers:{"version":"1.0.0"}
 					}).success(function(data, status){
 						//响应成功
-						$scope.rateOfMonthReturn = data;
+						$scope.rateOfReturn = data;
 					}).error(function(data, status){
 						//处理响应失败
 					});
@@ -145,8 +145,11 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-md-12">
-				<span>本月收益率：</span><span ng-style="{color: rateOfMonthReturn > 0 ? 'red' : 'green'}">{{rateOfMonthReturn}}%</span>
+				<div class="col-md-12 col-xs-12">
+					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn > 0 ? 'red' : 'green'}">{{rateOfReturn.rateOfMonthReturn}}%</span>
+				</div>
+				<div class="col-md-12 col-xs-12">
+					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn > 0 ? 'red' : 'green'}">{{rateOfReturn.rateOfYearReturn}}%</span>
 				</div>
 			</div>
 		</div><!-- /.container -->

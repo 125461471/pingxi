@@ -1,7 +1,5 @@
 package com.heibaba.usercenter.service;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.heibaba.common.exception.BusinessException;
 import com.heibaba.common.utils.DateUtil;
+import com.heibaba.usercenter.dto.LatestRateOfReturnDto;
 import com.heibaba.usercenter.entity.rdb.AssetsEntity;
 import com.heibaba.usercenter.repository.AssetsRepository;
 
@@ -89,16 +88,35 @@ public class AssetsService {
 		return entity;
 	}
 	
-	public double getRateOfMonthReturn(int userId, int accountId) {
+	/**
+	 * 获取最新收益率
+	 * @param userId
+	 * @param accountId
+	 * @return
+	 */
+	public LatestRateOfReturnDto getLatestRateOfReturn(int userId, int accountId) {
 
-		//先查询上个月月末资产
+		LatestRateOfReturnDto rate = new LatestRateOfReturnDto();
+		//查询上个月月末资产
 		AssetsEntity preMonthAssets = getPreMonthAssets(userId, accountId);
-		//再查询最新资产
-		AssetsEntity latestAssets = assetsRepository.findEndOfMonth(userId, accountId, new Date());
+		//查询本年年初资产
+		AssetsEntity beginOfThisYearAssets = assetsRepository.findBeginningOfThisYear(userId, accountId);
+		//查询最新资产
+		AssetsEntity latestAssets = assetsRepository.findLatest(userId, accountId);
 		
-		return Math.round(
-							((latestAssets.getAssets()-preMonthAssets.getAssets())*100/preMonthAssets.getAssets()) * 100
-						 ) * 0.01;
+		rate.setRateOfMonthReturn(
+				Math.round(
+						((latestAssets.getAssets()-preMonthAssets.getAssets())*100/preMonthAssets.getAssets()) * 100
+				) * 0.01
+			 );
+		
+		rate.setRateOfYearReturn(
+				Math.round(
+						((latestAssets.getAssets()-beginOfThisYearAssets.getAssets())*100/beginOfThisYearAssets.getAssets()) * 100
+				) * 0.01
+			 );
+		
+		return rate;
 	}
 
 }
