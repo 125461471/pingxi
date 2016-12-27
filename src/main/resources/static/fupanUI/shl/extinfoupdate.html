@@ -76,7 +76,7 @@
 				}
 				
 				$scope.appendShizhiInfoFormat = function() {
-					var format = "总市值$1$亿元，流通市值$2$亿元，前10大流通股东占【$3$%】，实际流通市值【$shijiLiutong$亿元】。";
+					var format = "总市值$1$亿元，流通市值$2$亿元，前10大流通股东占【$3$%】，实际流通市值【$shijiLiutong$亿元】，当前价$4$。";
 					if ($scope.item.miaoshu != undefined) {
 						$scope.item.miaoshu += format;
 					} else {
@@ -111,6 +111,7 @@
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$2$", content[1]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$3$", content[2]);
 							$scope.item.miaoshu = $scope.item.miaoshu.replace("$shijiLiutong$", (content[1]*(100-content[2])*0.01).toFixed(1));
+							$scope.item.miaoshu = $scope.item.miaoshu.replace("$4$", content[3]);
 						}
 					}
 				}
