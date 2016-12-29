@@ -122,7 +122,7 @@
 					</tr>
 					<tr ng-repeat="item in items">
 						<td hidden>{{item.id}}</td>
-						<td>{{item.assetsDate | date:'yyyy/MM/dd'}}</td>
+						<td>{{item.assetsDate | date:'yy/MM/dd'}}</td>
 						<td>{{item.assets | currency:'':0}}</td>
 						<td>{{item.freightSpace}}%</td>
 						<td>{{item.tpAssets}}</td>
@@ -135,7 +135,7 @@
 					</tr>
 					<tr class="active">
 						<td hidden>{{preMonthEomAssets.id}}</td>
-						<td>{{preMonthEomAssets.assetsDate | date:'yyyy/MM/dd'}}</td>
+						<td>{{preMonthEomAssets.assetsDate | date:'yy/MM/dd'}}</td>
 						<td>{{preMonthEomAssets.assets | currency:'':0}}</td>
 						<td>{{preMonthEomAssets.freightSpace}}%</td>
 						<td>{{preMonthEomAssets.tpAssets}}</td>
