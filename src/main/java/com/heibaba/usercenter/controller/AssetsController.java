@@ -76,11 +76,11 @@ public class AssetsController extends UcParentController {
 	}
 	
 	/**
-	 * 获取本月月度收益率
+	 * 获取最新收益率（非加权算法）
 	 * @param accountId
 	 * @return
 	 */
-	@RequestMapping(value = "/account/{accountId}/assets/month/rateofreturn", method = RequestMethod.GET, headers = "version=1.0.0")
+	@RequestMapping(value = "/account/{accountId}/assets/rateofreturn", method = RequestMethod.GET, headers = "version=1.0.0")
 	public LatestRateOfReturnDto getRateOfMonthReturn(@PathVariable(value = "accountId") int accountId) {
 		
 		int userId = 1;//== to do ==>获取session中的userId ;

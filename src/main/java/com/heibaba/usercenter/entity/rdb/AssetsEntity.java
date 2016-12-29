@@ -89,11 +89,41 @@ public class AssetsEntity extends BaseEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "assets_date")
 	private Date assetsDate;
+	
+	/**
+	 * 今日收益率
+	 */
+	@Min(-60)
+	@Max(60)
+	@NotNull
+	@Column(name = "day_rate")
+	private double dayRate;
+	
+	/**
+	 * 本月累计收益率
+	 */
+	@NotNull
+	@Column(name = "month_rate")
+	private double monthRate;
+	
+	/**
+	 * 本季累计度收益率
+	 */
+	@NotNull
+	@Column(name = "quarter_rate")
+	private double quarterRate;
+	
+	/**
+	 * 本年累计收益率
+	 */
+	@NotNull
+	@Column(name = "year_rate")
+	private double yearRate;
 
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -152,6 +182,38 @@ public class AssetsEntity extends BaseEntity implements Serializable {
 
 	public void setAssetsDate(Date assetsDate) {
 		this.assetsDate = assetsDate;
+	}
+
+	public double getDayRate() {
+		return dayRate;
+	}
+
+	public void setDayRate(double dayRate) {
+		this.dayRate = dayRate;
+	}
+
+	public double getMonthRate() {
+		return monthRate;
+	}
+
+	public void setMonthRate(double monthRate) {
+		this.monthRate = monthRate;
+	}
+
+	public double getQuarterRate() {
+		return quarterRate;
+	}
+
+	public void setQuarterRate(double quarterRate) {
+		this.quarterRate = quarterRate;
+	}
+
+	public double getYearRate() {
+		return yearRate;
+	}
+
+	public void setYearRate(double yearRate) {
+		this.yearRate = yearRate;
 	}
 
 }

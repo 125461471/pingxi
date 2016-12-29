@@ -53,6 +53,12 @@ public interface AssetsRepository extends JpaRepository<AssetsEntity, Integer> {
 	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId order by a.assets_date desc limit 1", nativeQuery=true)
 	AssetsEntity findLatest(@Param("userId") int userId, @Param("accountId") int accountId);
 
+	/**
+	 * 查询指定日期前一个交易日的资产
+	 */
+	@Query(value="select a.* from assets a where a.user_id = :userId and a.account_id = :accountId and a.assets_date < :assetsDate order by a.assets_date desc limit 1", nativeQuery=true)
+	AssetsEntity findPreDate(@Param("userId") int userId, @Param("accountId") int accountId, @Param("assetsDate") Date assetsDate);
+
 	Page<AssetsEntity> findAllByUserIdAndAccountId(int userId, int accountId, Pageable pageable);
 	
 	//生成收益曲线用
