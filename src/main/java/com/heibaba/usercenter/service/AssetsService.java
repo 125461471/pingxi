@@ -61,16 +61,16 @@ public class AssetsService {
 		return result;
 	}
 
-	public void delete(int id, int userId, int accountId) {
-
-		AssetsEntity record = new AssetsEntity();
-		record = assetsRepository.getOne(id);
-		if (record != null) {
-			if (record.getUserId() == userId && record.getAccountId() == accountId) {//权限校验
-				assetsRepository.delete(id);
-			}
-		}
-	}
+//	public void delete(int id, int userId, int accountId) {
+//
+//		AssetsEntity record = new AssetsEntity();
+//		record = assetsRepository.getOne(id);
+//		if (record != null) {
+//			if (record.getUserId() == userId && record.getAccountId() == accountId) {//权限校验
+//				assetsRepository.delete(id);
+//			}
+//		}
+//	}
 	
 	public Page<AssetsEntity> list(int userId, int accountId, Pageable pageable) {
 

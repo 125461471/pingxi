@@ -47,13 +47,13 @@ public class AssetsController extends UcParentController {
 		return assetsService.update(entity);
 	}
 	
-	@RequestMapping(value = "/account/{accountId}/assets/{id}", method = RequestMethod.DELETE, headers = "version=1.0.0")
-	public void delete(@PathVariable(value = "accountId") int accountId, 
-						@PathVariable(value = "id") int id) {
-		
-		int userId = 1;//== to do ==>获取session中的userId ;
-		assetsService.delete(id, userId, accountId);
-	}
+//	@RequestMapping(value = "/account/{accountId}/assets/{id}", method = RequestMethod.DELETE, headers = "version=1.0.0")
+//	public void delete(@PathVariable(value = "accountId") int accountId, 
+//						@PathVariable(value = "id") int id) {
+//		
+//		int userId = 1;//== to do ==>获取session中的userId ;
+//		assetsService.delete(id, userId, accountId);
+//	}
 	
 	@RequestMapping(value = "/account/{accountId}/assets", method = RequestMethod.GET, headers = "version=1.0.0")
 	public Page<AssetsEntity> list(@PathVariable(value = "accountId") int accountId, 
