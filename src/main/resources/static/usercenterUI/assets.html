@@ -19,7 +19,7 @@
 				$scope.accountId = 1;
 				
 				//分页参数设置
-				$scope.pagesize = 600;
+				$scope.pagesize = 6;
 				$scope.pagesort = "assetsDate,desc";
 				
 				$scope.init = function() {
@@ -127,7 +127,7 @@
 						<td>{{item.freightSpace}}%</td>
 						<td>{{item.tpAssets}}</td>
 						<td>{{item.transfer>0?'+'+(item.transfer | currency:'':0):(item.transfer | currency:'':0)}}</td>
-						<td>{{item.dayRate | number:2}}%</td>
+						<td><span ng-style="{color: item.dayRate < 0 ? 'green' : 'red'}">{{item.dayRate > 0 ? '+' : ''}}{{item.dayRate | number:2}}%</span></td>
 						<td>
 							<a href="" ng-click="updateAssets(item.id)">修改</a>
 <!-- 							<a href="" ng-dblclick="deleteAssets(item.id)">删除</a> -->
@@ -148,16 +148,16 @@
 			
 			<div class="row">
 				<div class="col-md-12 col-xs-12">
-					<span>本月收益率：</span><span ng-style="{color: items[0].monthRate > 0 ? 'red' : 'green'}">{{items[0].monthRate | number:2}}%</span>
+					<span>本月收益率：</span><span ng-style="{color: items[0].monthRate < 0 ? 'green' : 'red'}">{{items[0].monthRate > 0 ? '+' : ''}}{{items[0].monthRate | number:2}}%</span>
 				</div>
 				<div class="col-md-12 col-xs-12">
-					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate > 0 ? 'red' : 'green'}">{{items[0].yearRate | number:2}}%</span>
+					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate < 0 ? 'green' : 'red'}">{{items[0].yearRate > 0 ? '+' : ''}}{{items[0].yearRate | number:2}}%</span>
 				</div>
 <!-- 				<div class="col-md-12 col-xs-12"> -->
-<!-- 					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn > 0 ? 'red' : 'green'}">{{rateOfReturn.rateOfMonthReturn}}% - {{items[0].monthRate | number:2}}%</span> -->
+<!-- 					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonthReturn}}%</span> -->
 <!-- 				</div> -->
 <!-- 				<div class="col-md-12 col-xs-12"> -->
-<!-- 					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn > 0 ? 'red' : 'green'}">{{rateOfReturn.rateOfYearReturn}}% - {{items[0].yearRate | number:2}}%</span> -->
+<!-- 					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfYearReturn}}%</span> -->
 <!-- 				</div> -->
 			</div>
 		</div><!-- /.container -->
