@@ -151,6 +151,9 @@
 					<span>本月收益率：</span><span ng-style="{color: items[0].monthRate < 0 ? 'green' : 'red'}">{{items[0].monthRate > 0 ? '+' : ''}}{{items[0].monthRate | number:2}}%</span>
 				</div>
 				<div class="col-md-12 col-xs-12">
+					<span>本季收益率：</span><span ng-style="{color: items[0].quarterRate < 0 ? 'green' : 'red'}">{{items[0].quarterRate > 0 ? '+' : ''}}{{items[0].quarterRate | number:2}}%</span>
+				</div>
+				<div class="col-md-12 col-xs-12">
 					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate < 0 ? 'green' : 'red'}">{{items[0].yearRate > 0 ? '+' : ''}}{{items[0].yearRate | number:2}}%</span>
 				</div>
 <!-- 				<div class="col-md-12 col-xs-12"> -->
