@@ -25,7 +25,7 @@
 				$scope.init = function() {
 					$scope.query($scope.accountId);
 					$scope.queryPreMonthEomAssets($scope.accountId);
-// 					$scope.queryLatestRateOfReturn($scope.accountId);
+					$scope.queryLatestRateOfReturn($scope.accountId);
 				}
 				
 				$scope.query = function(page) {
@@ -156,12 +156,15 @@
 				<div class="col-md-12 col-xs-12">
 					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate < 0 ? 'green' : 'red'}">{{items[0].yearRate > 0 ? '+' : ''}}{{items[0].yearRate | number:2}}%</span>
 				</div>
-<!-- 				<div class="col-md-12 col-xs-12"> -->
-<!-- 					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonthReturn}}%</span> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-md-12 col-xs-12"> -->
-<!-- 					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfYearReturn}}%</span> -->
-<!-- 				</div> -->
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 col-xs-12">
+					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonthReturn > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonthReturn | number:2}}%</span>
+				</div>
+				<div class="col-md-12 col-xs-12">
+					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfYearReturn > 0 ? '+' : ''}}{{rateOfReturn.rateOfYearReturn | number:2}}%</span>
+				</div>
 			</div>
 		</div><!-- /.container -->
 	</body>
