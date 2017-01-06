@@ -13,12 +13,16 @@
 	<property name="LOG_APP" value="pingxi" />
 
     <!-- 时间滚动输出 level为 WARN 日志 -->
-    <appender name="FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY </onMismatch>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 级别过滤器 只保存ERROR级日志 -->
+<!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
+<!--             <level>ERROR</level> -->
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+<!--         </filter> -->
+        <!-- 临界值过滤器 保存WARN 和 ERROR级日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         	<!-- 非当天的Log文件压缩备份为 zip -->
