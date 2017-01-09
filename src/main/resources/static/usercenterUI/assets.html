@@ -25,7 +25,7 @@
 				$scope.init = function() {
 					$scope.query($scope.accountId);
 					$scope.queryPreMonthEomAssets($scope.accountId);
-					$scope.queryLatestRateOfReturn($scope.accountId);
+					$scope.queryRateOfReturn($scope.accountId);
 				}
 				
 				$scope.query = function(page) {
@@ -85,7 +85,7 @@
 					});
 				}
 				
-				$scope.queryLatestRateOfReturn = function() {
+				$scope.queryRateOfReturn = function() {
 					$http({
 					  url:"/pingxi/usercenter/account/"+$scope.accountId+"/assets/rateofreturn",
 					  method:'GET',
@@ -103,9 +103,22 @@
 	
 	<body ng-controller="assetsController" ng-init="init()">
 		<div class="container">
+			
 			<div class="row">
 				<div class="col-md-1">
 				<a class="btn btn-default" href="/pingxi/usercenterUI/assetsadd.html">填报资产</a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 col-xs-12">
+					<span>本月收益率：</span><span ng-style="{color: items[0].monthRate < 0 ? 'green' : 'red'}">{{items[0].monthRate > 0 ? '+' : ''}}{{items[0].monthRate | number:2}}%</span>
+				</div>
+				<div class="col-md-12 col-xs-12">
+					<span>本季收益率：</span><span ng-style="{color: items[0].quarterRate < 0 ? 'green' : 'red'}">{{items[0].quarterRate > 0 ? '+' : ''}}{{items[0].quarterRate | number:2}}%</span>
+				</div>
+				<div class="col-md-12 col-xs-12">
+					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate < 0 ? 'green' : 'red'}">{{items[0].yearRate > 0 ? '+' : ''}}{{items[0].yearRate | number:2}}%</span>
 				</div>
 			</div>
 			
@@ -146,25 +159,59 @@
 				</table>
 			</div>
 			
-			<div class="row">
-				<div class="col-md-12 col-xs-12">
-					<span>本月收益率：</span><span ng-style="{color: items[0].monthRate < 0 ? 'green' : 'red'}">{{items[0].monthRate > 0 ? '+' : ''}}{{items[0].monthRate | number:2}}%</span>
-				</div>
-				<div class="col-md-12 col-xs-12">
-					<span>本季收益率：</span><span ng-style="{color: items[0].quarterRate < 0 ? 'green' : 'red'}">{{items[0].quarterRate > 0 ? '+' : ''}}{{items[0].quarterRate | number:2}}%</span>
-				</div>
-				<div class="col-md-12 col-xs-12">
-					<span>今年收益率：</span><span ng-style="{color: items[0].yearRate < 0 ? 'green' : 'red'}">{{items[0].yearRate > 0 ? '+' : ''}}{{items[0].yearRate | number:2}}%</span>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-md-12 col-xs-12">
-					<span>本月收益率：</span><span ng-style="{color: rateOfReturn.rateOfMonthReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonthReturn > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonthReturn | number:2}}%</span>
-				</div>
-				<div class="col-md-12 col-xs-12">
-					<span>今年收益率：</span><span ng-style="{color: rateOfReturn.rateOfYearReturn < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfYearReturn > 0 ? '+' : ''}}{{rateOfReturn.rateOfYearReturn | number:2}}%</span>
-				</div>
+			<div class="table-responsive">
+				<table class="table table-condensed table-hover">
+					<tr role="row">
+						<th>01月</th>
+						<th>02月</th>
+						<th>03月</th>
+						<th>04月</th>
+						<th>05月</th>
+						<th>06月</th>
+					</tr>
+					<tr>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth01 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth01 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth01 == 0 ? '-' : (rateOfReturn.rateOfMonth01 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth02 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth02 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth02 == 0 ? '-' : (rateOfReturn.rateOfMonth02 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth03 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth03 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth03 == 0 ? '-' : (rateOfReturn.rateOfMonth03 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth04 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth04 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth04 == 0 ? '-' : (rateOfReturn.rateOfMonth04 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth05 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth05 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth05 == 0 ? '-' : (rateOfReturn.rateOfMonth05 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth06 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth06 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth06 == 0 ? '-' : (rateOfReturn.rateOfMonth06 | number:2)+'%'}}</span></td>
+					</tr>
+					<tr>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth01 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth01 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth01 == 0 ? '-' : (rateOfReturn.profitOfMonth01 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth02 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth02 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth02 == 0 ? '-' : (rateOfReturn.profitOfMonth02 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth03 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth03 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth03 == 0 ? '-' : (rateOfReturn.profitOfMonth03 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth04 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth04 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth04 == 0 ? '-' : (rateOfReturn.profitOfMonth04 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth05 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth05 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth05 == 0 ? '-' : (rateOfReturn.profitOfMonth05 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth06 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth06 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth06 == 0 ? '-' : (rateOfReturn.profitOfMonth06 | number:2)}}</span></td>
+					</tr>
+				</table>
+				<table class="table table-condensed table-hover">
+					<tr role="row">
+						<th>07月</th>
+						<th>08月</th>
+						<th>09月</th>
+						<th>10月</th>
+						<th>11月</th>
+						<th>12月</th>
+					</tr>
+					<tr>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth07 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth07 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth07 == 0 ? '-' : (rateOfReturn.rateOfMonth07 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth08 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth08 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth08 == 0 ? '-' : (rateOfReturn.rateOfMonth08 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth09 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth09 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth09 == 0 ? '-' : (rateOfReturn.rateOfMonth09 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth10 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth10 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth10 == 0 ? '-' : (rateOfReturn.rateOfMonth10 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth11 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth11 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth11 == 0 ? '-' : (rateOfReturn.rateOfMonth11 | number:2)+'%'}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.rateOfMonth12 < 0 ? 'green' : 'red'}">{{rateOfReturn.rateOfMonth12 > 0 ? '+' : ''}}{{rateOfReturn.rateOfMonth12 == 0 ? '-' : (rateOfReturn.rateOfMonth12 | number:2)+'%'}}</span></td>
+					</tr>
+					<tr>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth07 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth07 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth07 == 0 ? '-' : (rateOfReturn.profitOfMonth07 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth08 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth08 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth08 == 0 ? '-' : (rateOfReturn.profitOfMonth08 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth09 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth09 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth09 == 0 ? '-' : (rateOfReturn.profitOfMonth09 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth10 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth10 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth10 == 0 ? '-' : (rateOfReturn.profitOfMonth10 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth11 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth11 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth11 == 0 ? '-' : (rateOfReturn.profitOfMonth11 | number:2)}}</span></td>
+						<td><span ng-style="{color: rateOfReturn.profitOfMonth12 < 0 ? 'green' : 'red'}">{{rateOfReturn.profitOfMonth12 > 0 ? '+' : ''}}{{rateOfReturn.profitOfMonth12 == 0 ? '-' : (rateOfReturn.profitOfMonth12 | number:2)}}</span></td>
+					</tr>
+				</table>
 			</div>
 		</div><!-- /.container -->
 	</body>

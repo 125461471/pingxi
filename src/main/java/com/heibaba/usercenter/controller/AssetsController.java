@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.heibaba.usercenter.dto.LatestRateOfReturnDto;
 import com.heibaba.usercenter.entity.rdb.AssetsEntity;
+import com.heibaba.usercenter.entity.rdb.AssetsRateOfReturnEntity;
+import com.heibaba.usercenter.service.AssetsRateOfReturnService;
 import com.heibaba.usercenter.service.AssetsService;
 
 @RestController
@@ -18,6 +19,8 @@ public class AssetsController extends UcParentController {
 	
 	@Autowired
 	private AssetsService assetsService;
+	@Autowired
+	private AssetsRateOfReturnService assetsRateOfReturnService;
 	
 	@RequestMapping(value = "/account/{accountId}/assets/{id}", method = RequestMethod.GET, headers = "version=1.0.0")
 	public AssetsEntity get(@PathVariable(value = "accountId") int accountId, 
@@ -76,15 +79,15 @@ public class AssetsController extends UcParentController {
 	}
 	
 	/**
-	 * 获取最新收益率（非加权算法）
+	 * 获取收益率
 	 * @param accountId
 	 * @return
 	 */
 	@RequestMapping(value = "/account/{accountId}/assets/rateofreturn", method = RequestMethod.GET, headers = "version=1.0.0")
-	public LatestRateOfReturnDto getRateOfMonthReturn(@PathVariable(value = "accountId") int accountId) {
+	public AssetsRateOfReturnEntity getRateOReturn(@PathVariable(value = "accountId") int accountId) {
 		
 		int userId = 1;//== to do ==>获取session中的userId ;
-		return assetsService.getLatestRateOfReturn(userId, accountId);
+		return assetsRateOfReturnService.getRateOfReturn(userId, accountId);
 	}
 	
 }

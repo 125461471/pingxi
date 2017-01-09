@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.heibaba.common.exception.BusinessException;
 import com.heibaba.common.utils.DateUtil;
 import com.heibaba.common.utils.MathUtil;
-import com.heibaba.usercenter.dto.LatestRateOfReturnDto;
 import com.heibaba.usercenter.entity.rdb.AssetsEntity;
 import com.heibaba.usercenter.repository.AssetsRepository;
 
@@ -104,38 +103,6 @@ public class AssetsService {
 		}
 		
 		return entity;
-	}
-	
-	/**
-	 * 获取最新收益率（非加权算法）
-	 * <br>适合一年中资产无转入转出的情况
-	 * @param userId
-	 * @param accountId
-	 * @return
-	 */
-	public LatestRateOfReturnDto getLatestRateOfReturn(int userId, int accountId) {
-
-		LatestRateOfReturnDto rate = new LatestRateOfReturnDto();
-		//查询上个月月末资产
-		AssetsEntity preMonthAssets = getPreMonthAssets(userId, accountId);
-		//查询本年年初资产
-		AssetsEntity beginOfThisYearAssets = assetsRepository.findBeginningOfThisYear(userId, accountId);
-		//查询最新资产
-		AssetsEntity latestAssets = assetsRepository.findLatest(userId, accountId);
-		
-		rate.setRateOfMonthReturn(
-				Math.round(
-						((latestAssets.getAssets()-preMonthAssets.getAssets())/preMonthAssets.getAssets()) * 100 * 100
-				) * 0.01
-			 );
-		
-		rate.setRateOfYearReturn(
-				Math.round(
-						((latestAssets.getAssets()-beginOfThisYearAssets.getAssets())/beginOfThisYearAssets.getAssets()) * 100 * 100
-				) * 0.01
-			 );
-		
-		return rate;
 	}
 	
 	/**
