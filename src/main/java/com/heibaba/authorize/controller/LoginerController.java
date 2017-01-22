@@ -18,9 +18,9 @@ import com.heibaba.common.utils.PasswordUtil;
 
 @RestController
 @RequestMapping("/services/user")
-public class UserController {
+public class LoginerController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginerController.class);
 	
 	@Autowired
 	private ChangePwdService changePwdService;
