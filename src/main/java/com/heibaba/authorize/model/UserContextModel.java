@@ -25,6 +25,10 @@ public class UserContextModel implements Serializable {
 	 */
 	private String userName;
 	/**
+	 * 用户昵称
+	 */
+	private String nickName;
+	/**
 	 * 手机号
 	 */
 	private String telephone;
@@ -80,6 +84,14 @@ public class UserContextModel implements Serializable {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 }

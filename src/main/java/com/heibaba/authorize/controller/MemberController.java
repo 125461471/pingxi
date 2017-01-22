@@ -1,14 +1,20 @@
 package com.heibaba.authorize.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.heibaba.authorize.dto.Member;
@@ -16,18 +22,26 @@ import com.heibaba.authorize.dto.RegisterDto;
 import com.heibaba.authorize.model.UserContextModel;
 import com.heibaba.authorize.service.AuthService;
 import com.heibaba.authorize.service.RegisterService;
+import com.heibaba.usercenter.service.UserService;
 
 @RestController 
-@RequestMapping("/member")
+@RequestMapping("/open/member")
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	@Value("${server.context-path}")
+	private String contextPath;
+	@Value("${app.login-path}")
+	private String loginPath;
 	
 	@Autowired
 	private AuthService authService;
 	@Autowired
 	private RegisterService registerService;
-	
+	@Autowired
+	private UserService service;
+
 	/**
 	 * 用户登录
 	 * @param member
@@ -42,9 +56,29 @@ public class MemberController {
 		UserContextModel userModel = authService.auth(member.getAccountName(), member.getPassword(), member.getScope());
 		if (userModel != null) {//登录成功
 			session.setAttribute("USER_CONTEXT_MODEL", userModel);
-			logger.debug("登录成功，欢迎"+member.getAccountName());
+			logger.debug("登录成功，欢迎"+userModel.getUserName()+"["+userModel.getNickName()+"]");
 		}
 	}
+	
+	/**
+	 * 用户注销
+	 * @param session
+	 * @param response
+	 * @param request
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.GET, headers = "version=1.0.0")
+	public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		
+		UserContextModel userModel = (UserContextModel)session.getAttribute("USER_CONTEXT_MODEL");
+		if (userModel != null) {
+			session.setAttribute("USER_CONTEXT_MODEL", null);
+			logger.debug("注销成功，欢迎再来 "+userModel.getUserName()+"["+userModel.getNickName()+"]");
+		}
+		
+		response.sendRedirect(contextPath+loginPath);
+	}
+	
 	
 	/**
 	 * 用户注册
@@ -64,21 +98,21 @@ public class MemberController {
 		//第四步，用户输入用户名及密码，后台验证用户名及密码的合法性，合法则校验用户名是否存在。
 		UserContextModel userModel = null;
 		userModel = registerService.register(registerDto);
-		if (userModel != null && userModel.getUserId() > 0) {//注册成功
+		if (userModel != null && !StringUtils.isEmpty(userModel.getUserId())) {//注册成功
 			session.setAttribute("USER_CONTEXT_MODEL", userModel);
 			logger.debug("登录成功，欢迎"+registerDto.getUserName());
 		}
 	}
 	
 	/**
-	 * 密码找回
+	 * 用户名唯一性校验
+	 * @param username
+	 * @return true：存在；false：不存在
 	 */
-	@RequestMapping(value = "/pwd/retrieve", method = RequestMethod.POST, headers = "version=1.0.0")
-	public void pwdRetrieve() {
+	@RequestMapping(value = "/username/exist", method = RequestMethod.GET, headers = "version=1.0.0")
+	public boolean usernameExist(@RequestParam("userName") String userName) {
 		
-		//== to do ==> 密码找回
-		//发送找回短信时，设置每分钟条数限制及每天条数限制。
-		//短信验证码的时效性。
+		return service.checkUserNameExist(userName);
 	}
 	
 }
